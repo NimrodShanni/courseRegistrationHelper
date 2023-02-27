@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+
+<html  dir="rtl" lang="he" xml:lang="he" class="bootstrap-dark">
+<head>
+    <title>הצגת רישום למקצועות</title>
+    <link rel="shortcut icon" href="https://students.technion.ac.il/theme/image.php/technion/theme/1642355251/favicon" />
+    <meta name="robots" content="nofollow" />
+<meta name="copyright" content="Technion Institute of Technology" />
+<meta name="Classification" content="Academic" />
+<meta name="system_author" content="Stossel Yarden, yarden6260@gmail.com" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="moodle, הצגת רישום למקצועות" />
+<link rel="stylesheet" type="text/css" href="https://students.technion.ac.il/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css" /><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="https://students.technion.ac.il/theme/styles.php/technion/1642355251_1609926796/all-rtl" />
+<link rel="stylesheet" type="text/css" href="https://students.technion.ac.il/local/tregister/css/cart.css" />
+<script>
+//<![CDATA[
+var M = {}; M.yui = {};
+M.pageloadstarttime = new Date();
+M.cfg = {"wwwroot":"https:\/\/students.technion.ac.il","sesskey":"ZyWBPDC6yA","sessiontimeout":"7200","themerev":"1642355251","slasharguments":1,"theme":"technion","iconsystemmodule":"core\/icon_system_fontawesome","jsrev":-1,"admin":"admin","svgicons":true,"usertimezone":"\u05d0\u05e1\u05d9\u05d4, \u05d9\u05e8\u05d5\u05e9\u05dc\u05d9\u05dd","contextid":1,"langrev":1642355252,"templaterev":"1642355252"};var yui1ConfigFn = function(me) {if(/-skin|reset|fonts|grids|base/.test(me.name)){me.type='css';me.path=me.path.replace(/\.js/,'.css');me.path=me.path.replace(/\/yui2-skin/,'/assets/skins/sam/yui2-skin')}};
+var yui2ConfigFn = function(me) {var parts=me.name.replace(/^moodle-/,'').split('-'),component=parts.shift(),module=parts[0],min='-min';if(/-(skin|core)$/.test(me.name)){parts.pop();me.type='css';min=''}
+if(module){var filename=parts.join('-');me.path=component+'/'+module+'/'+filename+min+'.'+me.type}else{me.path=component+'/'+component+'.'+me.type}};
+YUI_config = {"debug":false,"base":"https:\/\/students.technion.ac.il\/lib\/yuilib\/3.17.2\/","comboBase":"https:\/\/students.technion.ac.il\/theme\/yui_combo.php?","combine":true,"filter":null,"insertBefore":"firstthemesheet","groups":{"yui2":{"base":"https:\/\/students.technion.ac.il\/lib\/yuilib\/2in3\/2.9.0\/build\/","comboBase":"https:\/\/students.technion.ac.il\/theme\/yui_combo.php?","combine":true,"ext":false,"root":"2in3\/2.9.0\/build\/","patterns":{"yui2-":{"group":"yui2","configFn":yui1ConfigFn}}},"moodle":{"name":"moodle","base":"https:\/\/students.technion.ac.il\/theme\/yui_combo.php?m\/-1\/","combine":true,"comboBase":"https:\/\/students.technion.ac.il\/theme\/yui_combo.php?","ext":false,"root":"m\/-1\/","patterns":{"moodle-":{"group":"moodle","configFn":yui2ConfigFn}},"filter":null,"modules":{"moodle-core-actionmenu":{"requires":["base","event","node-event-simulate"]},"moodle-core-languninstallconfirm":{"requires":["base","node","moodle-core-notification-confirm","moodle-core-notification-alert"]},"moodle-core-chooserdialogue":{"requires":["base","panel","moodle-core-notification"]},"moodle-core-maintenancemodetimer":{"requires":["base","node"]},"moodle-core-tooltip":{"requires":["base","node","io-base","moodle-core-notification-dialogue","json-parse","widget-position","widget-position-align","event-outside","cache-base"]},"moodle-core-lockscroll":{"requires":["plugin","base-build"]},"moodle-core-popuphelp":{"requires":["moodle-core-tooltip"]},"moodle-core-notification":{"requires":["moodle-core-notification-dialogue","moodle-core-notification-alert","moodle-core-notification-confirm","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-core-notification-dialogue":{"requires":["base","node","panel","escape","event-key","dd-plugin","moodle-core-widget-focusafterclose","moodle-core-lockscroll"]},"moodle-core-notification-alert":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-confirm":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-exception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-ajaxexception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-dragdrop":{"requires":["base","node","io","dom","dd","event-key","event-focus","moodle-core-notification"]},"moodle-core-formchangechecker":{"requires":["base","event-focus","moodle-core-event"]},"moodle-core-event":{"requires":["event-custom"]},"moodle-core-blocks":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification"]},"moodle-core-handlebars":{"condition":{"trigger":"handlebars","when":"after"}},"moodle-core_availability-form":{"requires":["base","node","event","event-delegate","panel","moodle-core-notification-dialogue","json"]},"moodle-backup-backupselectall":{"requires":["node","event","node-event-simulate","anim"]},"moodle-backup-confirmcancel":{"requires":["node","node-event-simulate","moodle-core-notification-confirm"]},"moodle-course-categoryexpander":{"requires":["node","event-key"]},"moodle-course-management":{"requires":["base","node","io-base","moodle-core-notification-exception","json-parse","dd-constrain","dd-proxy","dd-drop","dd-delegate","node-event-delegate"]},"moodle-course-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-course-coursebase","moodle-course-util"]},"moodle-course-formatchooser":{"requires":["base","node","node-event-simulate"]},"moodle-course-util":{"requires":["node"],"use":["moodle-course-util-base"],"submodules":{"moodle-course-util-base":{},"moodle-course-util-section":{"requires":["node","moodle-course-util-base"]},"moodle-course-util-cm":{"requires":["node","moodle-course-util-base"]}}},"moodle-form-dateselector":{"requires":["base","node","overlay","calendar"]},"moodle-form-passwordunmask":{"requires":[]},"moodle-form-shortforms":{"requires":["node","base","selector-css3","moodle-core-event"]},"moodle-question-chooser":{"requires":["moodle-core-chooserdialogue"]},"moodle-question-searchform":{"requires":["base","node"]},"moodle-question-preview":{"requires":["base","dom","event-delegate","event-key","core_question_engine"]},"moodle-availability_completion-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_date-form":{"requires":["base","node","event","io","moodle-core_availability-form"]},"moodle-availability_grade-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_group-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_grouping-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_profile-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-mod_assign-history":{"requires":["node","transition"]},"moodle-mod_quiz-quizbase":{"requires":["base","node"]},"moodle-mod_quiz-toolboxes":{"requires":["base","node","event","event-key","io","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-slot","moodle-core-notification-ajaxexception"]},"moodle-mod_quiz-questionchooser":{"requires":["moodle-core-chooserdialogue","moodle-mod_quiz-util","querystring-parse"]},"moodle-mod_quiz-modform":{"requires":["base","node","event"]},"moodle-mod_quiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-mod_quiz-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-base","moodle-mod_quiz-util-page","moodle-mod_quiz-util-slot","moodle-course-util"]},"moodle-mod_quiz-util":{"requires":["node","moodle-core-actionmenu"],"use":["moodle-mod_quiz-util-base"],"submodules":{"moodle-mod_quiz-util-base":{},"moodle-mod_quiz-util-slot":{"requires":["node","moodle-mod_quiz-util-base"]},"moodle-mod_quiz-util-page":{"requires":["node","moodle-mod_quiz-util-base"]}}},"moodle-message_airnotifier-toolboxes":{"requires":["base","node","io"]},"moodle-filter_glossary-autolinker":{"requires":["base","node","io-base","json-parse","event-delegate","overlay","moodle-core-event","moodle-core-notification-alert","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-filter_mathjaxloader-loader":{"requires":["moodle-core-event"]},"moodle-editor_atto-editor":{"requires":["node","transition","io","overlay","escape","event","event-simulate","event-custom","node-event-html5","node-event-simulate","yui-throttle","moodle-core-notification-dialogue","moodle-core-notification-confirm","moodle-editor_atto-rangy","handlebars","timers","querystring-stringify"]},"moodle-editor_atto-plugin":{"requires":["node","base","escape","event","event-outside","handlebars","event-custom","timers","moodle-editor_atto-menu"]},"moodle-editor_atto-menu":{"requires":["moodle-core-notification-dialogue","node","event","event-custom"]},"moodle-editor_atto-rangy":{"requires":[]},"moodle-report_eventlist-eventfilter":{"requires":["base","event","node","node-event-delegate","datatable","autocomplete","autocomplete-filters"]},"moodle-report_loglive-fetchlogs":{"requires":["base","event","node","io","node-event-delegate"]},"moodle-gradereport_grader-gradereporttable":{"requires":["base","node","event","handlebars","overlay","event-hover"]},"moodle-gradereport_history-userselector":{"requires":["escape","event-delegate","event-key","handlebars","io-base","json-parse","moodle-core-notification-dialogue"]},"moodle-tool_capability-search":{"requires":["base","node"]},"moodle-tool_lp-dragdrop-reorder":{"requires":["moodle-core-dragdrop"]},"moodle-tool_monitor-dropdown":{"requires":["base","event","node"]},"moodle-assignfeedback_editpdf-editor":{"requires":["base","event","node","io","graphics","json","event-move","event-resize","transition","querystring-stringify-simple","moodle-core-notification-dialog","moodle-core-notification-alert","moodle-core-notification-warning","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-atto_accessibilitychecker-button":{"requires":["color-base","moodle-editor_atto-plugin"]},"moodle-atto_accessibilityhelper-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_align-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_bold-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_charmap-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_clear-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_collapse-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_emojipicker-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_emoticon-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_equation-button":{"requires":["moodle-editor_atto-plugin","moodle-core-event","io","event-valuechange","tabview","array-extras"]},"moodle-atto_h5p-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_html-button":{"requires":["promise","moodle-editor_atto-plugin","moodle-atto_html-beautify","moodle-atto_html-codemirror","event-valuechange"]},"moodle-atto_html-codemirror":{"requires":["moodle-atto_html-codemirror-skin"]},"moodle-atto_html-beautify":{},"moodle-atto_image-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_indent-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_italic-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_link-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-usedfiles":{"requires":["node","escape"]},"moodle-atto_media-button":{"requires":["moodle-editor_atto-plugin","moodle-form-shortforms"]},"moodle-atto_noautolink-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_orderedlist-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_recordrtc-recording":{"requires":["moodle-atto_recordrtc-button"]},"moodle-atto_recordrtc-button":{"requires":["moodle-editor_atto-plugin","moodle-atto_recordrtc-recording"]},"moodle-atto_rtl-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_strike-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_subscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_superscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_table-button":{"requires":["moodle-editor_atto-plugin","moodle-editor_atto-menu","event","event-valuechange"]},"moodle-atto_title-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_underline-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_undo-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_unorderedlist-button":{"requires":["moodle-editor_atto-plugin"]}}},"gallery":{"name":"gallery","base":"https:\/\/students.technion.ac.il\/lib\/yuilib\/gallery\/","combine":true,"comboBase":"https:\/\/students.technion.ac.il\/theme\/yui_combo.php?","ext":false,"root":"gallery\/-1\/","patterns":{"gallery-":{"group":"gallery"}}}},"modules":{"core_filepicker":{"name":"core_filepicker","fullpath":"https:\/\/students.technion.ac.il\/lib\/javascript.php\/-1\/repository\/filepicker.js","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","yui2-treeview","panel","cookie","datatable","datatable-sort","resize-plugin","dd-plugin","escape","moodle-core_filepicker","moodle-core-notification-dialogue"]},"core_comment":{"name":"core_comment","fullpath":"https:\/\/students.technion.ac.il\/lib\/javascript.php\/-1\/comment\/comment.js","requires":["base","io-base","node","json","yui2-animation","overlay","escape"]},"mathjax":{"name":"mathjax","fullpath":"https:\/\/cdn.jsdelivr.net\/npm\/mathjax@2.7.8\/MathJax.js?delayStartupUntil=configured"}}};
+M.yui.loader = {modules: {}};
+
+//]]>
+</script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body  id="page-local-tregister-cart" class="format-site  path-local path-local-tregister dir-rtl lang-he yui-skin-sam yui3-skin-sam students-technion-ac-il pagelayout-standard course-1 context-1 drawer-open-left">
+<div class="toast-wrapper mx-auto py-0 fixed-top" role="status" aria-live="polite"></div>
+
+<div id="page-wrapper" class="d-print-block">
+
+    <div>
+    <a class="sr-only sr-only-focusable" href="#maincontent">דילוג לתוכן הראשי</a>
+</div><script src="https://students.technion.ac.il/lib/javascript.php/-1/lib/babel-polyfill/polyfill.js"></script>
+<script src="https://students.technion.ac.il/lib/javascript.php/-1/lib/polyfills/polyfill.js"></script>
+<script src="https://students.technion.ac.il/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.js"></script><script src="https://students.technion.ac.il/lib/javascript.php/-1/lib/javascript-static.js"></script>
+<script>
+//<![CDATA[
+document.body.className += ' jsenabled';
+//]]>
+</script>
+
+
+
+    <nav class="fixed-top navbar navbar-light bg-white navbar-expand moodle-has-zindex" aria-label="Site navigation">
+    
+            <div data-region="drawer-toggle" class="d-inline-block mr-3">
+                <button aria-expanded="true" aria-controls="nav-drawer" type="button" class="btn nav-link float-sm-left mr-1 btn-light bg-gray" data-action="toggle-drawer" data-side="left" data-preference="drawer-open-nav"><i class="icon fa fa-bars fa-fw " aria-hidden="true"  ></i><span class="sr-only">חלון סקירה צדדי</span></button>
+            </div>
+    
+            <a href="https://students.technion.ac.il" class="navbar-brand aabtn has-logo
+                    ">
+                    <span class="logo d-none d-sm-inline">
+                        <img src="https://students.technion.ac.il/pluginfile.php/1/core_admin/logocompact/300x300/1642355251/technion_logo_heb%20%281%29.png" alt="Students">
+                    </span>
+                <span class="site-name d-none d-md-inline">Students</span>
+            </a>
+    
+            <ul class="navbar-nav d-none d-md-flex">
+                <!-- custom_menu -->
+                <li class="dropdown nav-item">
+    <a class="dropdown-toggle nav-link" id="drop-down-61e847774a36161e84777490f34" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" title="שפת ממשק" aria-controls="drop-down-menu-61e847774a36161e84777490f34">
+        עברית ‎(he)‎
+    </a>
+    <div class="dropdown-menu" role="menu" id="drop-down-menu-61e847774a36161e84777490f34" aria-labelledby="drop-down-61e847774a36161e84777490f34">
+                <a class="dropdown-item" role="menuitem" href="https://students.technion.ac.il/local/tregister/cart?lang=he" title="עברית ‎(he)‎">עברית ‎(he)‎</a>
+                <a class="dropdown-item" role="menuitem" href="https://students.technion.ac.il/local/tregister/cart?lang=en" title="English ‎(en)‎">English ‎(en)‎</a>
+    </div>
+</li>
+                <!-- page_heading_menu -->
+                
+            </ul>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="d-none d-lg-block">
+                    
+                </li>
+                <!-- navbar_plugin_output -->
+                <li class="nav-item">
+                    <div class="float-right">
+    <a id="activate_dark_mode" data-dark_mode="1" class="nav-link d-inline-block position-relative" role="button" style="cursor: pointer;">
+        <i class="icon fa fa-sun  fa-fw " title="הפעל או בטל מצב מוחשך" aria-label="הפעל או בטל מצב מוחשך"></i>
+    </a>
+</div>
+                </li>
+                <!-- user_menu -->
+                <li class="nav-item d-flex align-items-center">
+                    <div class="usermenu"><div class="action-menu moodle-actionmenu nowrap-items d-inline" id="action-menu-1" data-enhance="moodle-core-actionmenu">
+
+        <div class="menubar d-flex " id="action-menu-1-menubar" role="menubar">
+
+            
+
+
+                <div class="action-menu-trigger">
+                    <div class="dropdown">
+                        <a href="#" tabindex="0" class="d-inline-block  dropdown-toggle icon-no-margin" id="action-menu-toggle-1" aria-label="תפריט משתמש" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="action-menu-1-menu">
+                            
+                            <span class="userbutton"><span class="usertext mr-1">Matan Dery</span><span class="avatars"><span class="avatar current"><img src="https://students.technion.ac.il/theme/image.php/technion/core/1642355251/u/f2" class="userpicture defaultuserpic" width="35" height="35" aria-hidden="true" /></span></span></span>
+                                
+                            <b class="caret"></b>
+                        </a>
+                            <div class="dropdown-menu dropdown-menu-right menu  align-tr-br" id="action-menu-1-menu" data-rel="menu-content" aria-labelledby="action-menu-toggle-1" role="menu" data-align="tr-br">
+                                                                <a href="https://students.technion.ac.il/my/" class="dropdown-item menu-action" role="menuitem" data-title="mymoodle,admin" aria-labelledby="actionmenuaction-1">
+                                <i class="icon fa fa-tachometer fa-fw " aria-hidden="true"  ></i>
+                                <span class="menu-action-text" id="actionmenuaction-1">עדכונים בקורסים שלי</span>
+                        </a>
+                    <div class="dropdown-divider" role="presentation"><span class="filler">&nbsp;</span></div>
+                                                                <a href="https://students.technion.ac.il/user/profile.php?id=50648" class="dropdown-item menu-action" role="menuitem" data-title="profile,moodle" aria-labelledby="actionmenuaction-2">
+                                <i class="icon fa fa-user fa-fw " aria-hidden="true"  ></i>
+                                <span class="menu-action-text" id="actionmenuaction-2">פרופיל</span>
+                        </a>
+                    <div class="dropdown-divider" role="presentation"><span class="filler">&nbsp;</span></div>
+                                                                <a href="https://students.technion.ac.il/login/logout.php?sesskey=ZyWBPDC6yA" class="dropdown-item menu-action" role="menuitem" data-title="logout,moodle" aria-labelledby="actionmenuaction-3">
+                                <i class="icon fa fa-sign-out fa-fw " aria-hidden="true"  ></i>
+                                <span class="menu-action-text" id="actionmenuaction-3">התנתקות</span>
+                        </a>
+                            </div>
+                    </div>
+                </div>
+
+        </div>
+
+</div></div>
+                </li>
+            </ul>
+            <!-- search_box -->
+    </nav>
+    
+    <div id="nav-drawer" data-region="drawer" class="d-print-none moodle-has-zindex " aria-hidden="false" tabindex="-1">
+        <nav class="list-group" aria-label="מערכת">
+            <ul>
+                    <li>
+                        <a class="list-group-item list-group-item-action  " href="https://students.technion.ac.il/" data-key="home" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="1" data-nodetype="1" data-collapse="0" data-forceopen="1" data-isactive="0" data-hidden="0" data-preceedwithhr="0" >
+                            <div class="ml-0">
+                                <div class="media">
+                                        <span class="media-left">
+                                            <i class="icon fa fa-home fa-fw " aria-hidden="true"  ></i>
+                                        </span>
+                                    <span class="media-body ">ראשי</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item list-group-item-action  " href="https://students.technion.ac.il/local/portal/" data-key="local_portal" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="home">
+                            <div class="ml-0">
+                                <div class="media">
+                                        <span class="media-left">
+                                            <i class="icon fa fa-user-circle fa-fw " aria-hidden="true"  ></i>
+                                        </span>
+                                    <span class="media-body ">אזור אישי</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item list-group-item-action active active_tree_node " href="https://students.technion.ac.il/local/tregister/cart" data-key="local_tregister" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="1" data-isactive="1" data-hidden="0" data-preceedwithhr="0" data-parent-key="home">
+                            <div class="ml-0">
+                                <div class="media">
+                                        <span class="media-left">
+                                            <i class="icon fa fa-shopping-cart fa-fw " aria-hidden="true"  ></i>
+                                        </span>
+                                    <span class="media-body font-weight-bold">הצגת רישום למקצועות</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item list-group-item-action  " href="https://students.technion.ac.il/local/tcurricular/curricular" data-key="tcurricular_curricular" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="home">
+                            <div class="ml-0">
+                                <div class="media">
+                                        <span class="media-left">
+                                            <i class="icon fa fa-calendar fa-fw " aria-hidden="true"  ></i>
+                                        </span>
+                                    <span class="media-body ">מערכת שעות</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item list-group-item-action  " href="https://students.technion.ac.il/local/texam/exams_dashboard.php" data-key="texam_dashboard" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="home">
+                            <div class="ml-0">
+                                <div class="media">
+                                        <span class="media-left">
+                                            <img class="icon " alt="" aria-hidden="true" src="https://students.technion.ac.il/theme/image.php/technion/local_texam/1642355251/diagnoses-solid" />
+                                        </span>
+                                    <span class="media-body ">כרטיס בחינות</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item list-group-item-action  " href="https://students.technion.ac.il/local/docsgenerator" data-key="docsgenerator_dashboard" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="home">
+                            <div class="ml-0">
+                                <div class="media">
+                                        <span class="media-left">
+                                            <img class="icon " alt="" aria-hidden="true" src="https://students.technion.ac.il/theme/image.php/technion/local_docsgenerator/1642355251/file-signature-solid" />
+                                        </span>
+                                    <span class="media-body ">אישורים ותדפיסים</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="list-group-item list-group-item-action  " href="https://students.technion.ac.il/local/technionsearch/search" data-key="technionsearch_search" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="home">
+                            <div class="ml-0">
+                                <div class="media">
+                                        <span class="media-left">
+                                            <i class="icon fa fa-search fa-fw " aria-hidden="true"  ></i>
+                                        </span>
+                                    <span class="media-body ">חיפוש קורסים בטכניון</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="page" class="container-fluid d-print-block">
+        <header id="page-header" class="row">
+    <div class="col-12 pt-3 pb-3">
+        <div class="card ">
+            <div class="card-body ">
+                <div class="d-sm-flex align-items-center">
+                    <div class="mr-auto">
+                        <div class="page-context-header"><div class="page-header-headings"><h1>הצגת רישום למקצועות</h1></div></div>
+                    </div>
+
+                    <div class="header-actions-container flex-shrink-0" data-region="header-actions-container">
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap">
+                    <div id="page-navbar">
+                        <nav aria-label="סרגל קישורי ניווט">
+    <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="https://students.technion.ac.il/"  >ראשי</a>
+                </li>
+        
+                <li class="breadcrumb-item">
+                    <a href="https://students.technion.ac.il/local/tregister/cart" aria-current="page" >הצגת רישום למקצועות</a>
+                </li>
+        </ol>
+</nav>
+                    </div>
+                    <div class="ml-auto d-flex">
+                        
+                    </div>
+                    <div id="course-header">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div id="page-content" class="row pb-3 d-print-block">
+            <div id="region-main-box" class="col-12">
+                <section id="region-main"  aria-label="תוכן">
+
+                    <span class="notifications" id="user-notifications"></span>
+                    <div role="main"><span id="maincontent"></span><h5><i class="icon fa fa-user fa-fw"></i> <strong>דרעי מתן</strong> (<strong>209288539</strong>), <i class="icon fa fa-graduation-cap fa-fw"></i> מסלול אקדמי: <strong>מדעי המחשב</strong>,&nbsp; <i class="icon fa fa-clock-o fa-fw"></i>הרשמה החל מ- <strong>17:00 13/01/2022</strong></h5>
+<hr>
+<h3>פעולות ממתינות לביצוע</h3>
+<h5 class="text-warning" style="font-weight: bolder;">חשוב! על מנת לשלוח את בקשת הרישום/שינוי/ביטול יש ללחוץ על כפתור "בצע"</h5>
+<h5><strong>סך הכל נקודות בסל:</strong> 3 (הוספה: 3.0, הסרה: 0.0, שינוי קבוצה: 1.0)</h5>
+
+<form autocomplete="off" action="https://students.technion.ac.il/local/tregister/cart" method="post" accept-charset="utf-8" id="mform1_Vptbulyp2OdBAAV" class="mform">
+	<div style="display: none;"><input name="course_group_add" type="hidden" value="1" />
+<input name="sesskey" type="hidden" value="ZyWBPDC6yA" />
+<input name="_qf__local_tregister_form_quick_add_course_group_simple" type="hidden" value="1" />
+</div>
+
+<div id="fgroup_id_group_1" class="form-group row  fitem   " data-groupname="qf_group_1">
+    <div class="col-md-3">
+        <span class="float-sm-right text-nowrap">
+            
+            
+            
+        </span>
+                    <p id="fgroup_id_group_1_label" class="col-form-label d-inline" aria-hidden="true">
+                הוספה מהירה
+            </p>
+
+    </div>
+    <div class="col-md-9 form-inline felement" data-fieldtype="group">
+        <fieldset class="w-100 m-0 p-0 border-0">
+            <legend class="sr-only">הוספה מהירה</legend>
+            <div class="d-flex flex-wrap align-items-center">
+                
+                <div class="form-group  fitem  " >
+        <label class="col-form-label sr-only" for="id_course_id">
+            שם מקצוע
+        </label>
+    <span>
+        
+        
+        
+    </span>
+    <span data-fieldtype="text">
+    <input type="text"
+            class="form-control "
+            name="course_id"
+            id="id_course_id"
+            value=""
+            
+            placeholder="שם מקצוע">
+    </span>
+    <div class="form-control-feedback invalid-feedback" id="id_error_course_id" >
+        
+    </div>
+</div>
+                
+                <div class="form-group  fitem  " >
+        <label class="col-form-label sr-only" for="id_group_id">
+            קבוצת רישום
+        </label>
+    <span>
+        
+        
+        
+    </span>
+    <span data-fieldtype="text">
+    <input type="text"
+            class="form-control "
+            name="group_id"
+            id="id_group_id"
+            value=""
+            
+            placeholder="קבוצת רישום">
+    </span>
+    <div class="form-control-feedback invalid-feedback" id="id_error_group_id" >
+        
+    </div>
+</div>
+                
+                <div class="form-group  fitem  " >
+    <span>
+        
+        
+        
+    </span>
+    <span data-fieldtype="submit">
+        <input type="submit"
+                class="btn
+                        btn-primary
+                        
+                    
+                    "
+                name="submitbutton"
+                id="id_submitbutton"
+                value="הוספה"
+                 >
+    </span>
+    <div class="form-control-feedback invalid-feedback" id="id_error_submitbutton" >
+        
+    </div>
+</div>
+            </div>
+        </fieldset>
+        <div class="form-control-feedback invalid-feedback" id="fgroup_id_error_group_1" >
+            
+        </div>
+    </div>
+</div>
+</form>
+<ul class="list-group" id="cart_items">
+        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="7"
+            data-course_id="394800"
+            data-group_id="24"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/394800/202102">394800-24: חינוך גופני-כושר בנים</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        1.0 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="7"
+                                    class="alert alert-info h-100"
+                                    role="alert" aria-expanded="false" data-course_id="394800"
+                                    data-group_id="24"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                ממתין לשינוי קבוצה
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="394800"
+                                    data-group_id="24"
+                            >
+                                    <a
+                                            class="btn bg-warning text-dark cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="394800"
+                                            data-requested_status_id="-1"
+                                            data-group_id="24"
+                                            data-action="cancel_change_group_request"
+                                    style="font-weight: bolder">
+                                        ביטול פעולה
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        
+                    </div>
+                </div>
+            </div>
+        </li>        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="9"
+            data-course_id="394802"
+            data-group_id="21"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/394802/202102">394802-21: חינוך גופני - שחיה</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        1.0 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="9"
+                                    class="alert alert-info h-100"
+                                    role="alert" aria-expanded="false" data-course_id="394802"
+                                    data-group_id="21"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                ממתין לרישום
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="394802"
+                                    data-group_id="21"
+                            >
+                                    <a
+                                            class="btn bg-warning text-dark cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="394802"
+                                            data-requested_status_id="-1"
+                                            data-group_id="21"
+                                            data-action="cancel_registration_request"
+                                    style="font-weight: bolder">
+                                        ביטול פעולה
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        שינוי קבוצה: <span class="inplaceeditable inplaceeditable-select" data-inplaceeditable="1" data-component="local_tregister" data-itemtype="cart_item" data-itemid="394802"
+    data-value="21" data-editlabel="קבוצת רישום" data-type="select" data-options="[{&quot;key&quot;:10,&quot;value&quot;:&quot;10 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:11,&quot;value&quot;:&quot;11 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:12,&quot;value&quot;:&quot;12 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:14,&quot;value&quot;:&quot;14 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:15,&quot;value&quot;:&quot;15 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:16,&quot;value&quot;:&quot;16 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:17,&quot;value&quot;:&quot;17 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:18,&quot;value&quot;:&quot;18 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:19,&quot;value&quot;:&quot;19 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:20,&quot;value&quot;:&quot;20 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:21,&quot;value&quot;:&quot;21 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:22,&quot;value&quot;:&quot;22 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:23,&quot;value&quot;:&quot;23 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:24,&quot;value&quot;:&quot;24 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:25,&quot;value&quot;:&quot;25 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:26,&quot;value&quot;:&quot;26 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:30,&quot;value&quot;:&quot;30 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:31,&quot;value&quot;:&quot;31 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:32,&quot;value&quot;:&quot;32 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:34,&quot;value&quot;:&quot;34 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:35,&quot;value&quot;:&quot;35 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:36,&quot;value&quot;:&quot;36 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:37,&quot;value&quot;:&quot;37 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:38,&quot;value&quot;:&quot;38 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:40,&quot;value&quot;:&quot;40 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:85,&quot;value&quot;:&quot;85 - 5 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;}]">
+        
+        <a href="#" class="quickeditlink aalink" data-inplaceeditablelink="1" title="קבוצת רישום">
+            21 - 0 מקומות פנויים
+            <span class="quickediticon visibleifjs"><i class="icon fa fa-pencil fa-fw "  title="קבוצת רישום" aria-label="קבוצת רישום"></i></span>
+        </a>
+</span>
+                    </div>
+                </div>
+            </div>
+        </li>        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="9"
+            data-course_id="394805"
+            data-group_id="29"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/394805/202102">394805-29: חינוך גופני - אתלטיקה קלה</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        1.0 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="9"
+                                    class="alert alert-info h-100"
+                                    role="alert" aria-expanded="false" data-course_id="394805"
+                                    data-group_id="29"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                ממתין לרישום
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="394805"
+                                    data-group_id="29"
+                            >
+                                    <a
+                                            class="btn bg-warning text-dark cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="394805"
+                                            data-requested_status_id="-1"
+                                            data-group_id="29"
+                                            data-action="cancel_registration_request"
+                                    style="font-weight: bolder">
+                                        ביטול פעולה
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        שינוי קבוצה: <span class="inplaceeditable inplaceeditable-select" data-inplaceeditable="1" data-component="local_tregister" data-itemtype="cart_item" data-itemid="394805"
+    data-value="29" data-editlabel="קבוצת רישום" data-type="select" data-options="[{&quot;key&quot;:16,&quot;value&quot;:&quot;16 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:18,&quot;value&quot;:&quot;18 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:19,&quot;value&quot;:&quot;19 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:20,&quot;value&quot;:&quot;20 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:21,&quot;value&quot;:&quot;21 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:22,&quot;value&quot;:&quot;22 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:23,&quot;value&quot;:&quot;23 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:24,&quot;value&quot;:&quot;24 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:26,&quot;value&quot;:&quot;26 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:28,&quot;value&quot;:&quot;28 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:29,&quot;value&quot;:&quot;29 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:30,&quot;value&quot;:&quot;30 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:31,&quot;value&quot;:&quot;31 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:32,&quot;value&quot;:&quot;32 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:33,&quot;value&quot;:&quot;33 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:34,&quot;value&quot;:&quot;34 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:35,&quot;value&quot;:&quot;35 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;}]">
+        
+        <a href="#" class="quickeditlink aalink" data-inplaceeditablelink="1" title="קבוצת רישום">
+            29 - 0 מקומות פנויים
+            <span class="quickediticon visibleifjs"><i class="icon fa fa-pencil fa-fw "  title="קבוצת רישום" aria-label="קבוצת רישום"></i></span>
+        </a>
+</span>
+                    </div>
+                </div>
+            </div>
+        </li>        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="9"
+            data-course_id="394806"
+            data-group_id="22"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/394806/202102">394806-22: חינוך גופני - הגנה עצמית</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        1.0 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="9"
+                                    class="alert alert-info h-100"
+                                    role="alert" aria-expanded="false" data-course_id="394806"
+                                    data-group_id="22"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                ממתין לרישום
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="394806"
+                                    data-group_id="22"
+                            >
+                                    <a
+                                            class="btn bg-warning text-dark cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="394806"
+                                            data-requested_status_id="-1"
+                                            data-group_id="22"
+                                            data-action="cancel_registration_request"
+                                    style="font-weight: bolder">
+                                        ביטול פעולה
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        שינוי קבוצה: <span class="inplaceeditable inplaceeditable-select" data-inplaceeditable="1" data-component="local_tregister" data-itemtype="cart_item" data-itemid="394806"
+    data-value="22" data-editlabel="קבוצת רישום" data-type="select" data-options="[{&quot;key&quot;:11,&quot;value&quot;:&quot;11 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:12,&quot;value&quot;:&quot;12 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:15,&quot;value&quot;:&quot;15 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:16,&quot;value&quot;:&quot;16 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:17,&quot;value&quot;:&quot;17 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:18,&quot;value&quot;:&quot;18 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:19,&quot;value&quot;:&quot;19 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:20,&quot;value&quot;:&quot;20 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:21,&quot;value&quot;:&quot;21 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:22,&quot;value&quot;:&quot;22 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:23,&quot;value&quot;:&quot;23 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:24,&quot;value&quot;:&quot;24 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:25,&quot;value&quot;:&quot;25 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:28,&quot;value&quot;:&quot;28 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:29,&quot;value&quot;:&quot;29 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:37,&quot;value&quot;:&quot;37 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:39,&quot;value&quot;:&quot;39 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;}]">
+        
+        <a href="#" class="quickeditlink aalink" data-inplaceeditablelink="1" title="קבוצת רישום">
+            22 - 0 מקומות פנויים
+            <span class="quickediticon visibleifjs"><i class="icon fa fa-pencil fa-fw "  title="קבוצת רישום" aria-label="קבוצת רישום"></i></span>
+        </a>
+</span>
+                    </div>
+                </div>
+            </div>
+        </li>    <div class="btn-group course_group_actions w-100" style="display: none;" id="no_cart_items" role="group" data-course_id="" data-group_id="">
+        אין פעולות רישום ממתינות
+    </div>
+</ul>
+<br/>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2">
+                <button type="button" class="btn btn-primary btn-lg btn-block" id="process_cart_item_request" >בצע  <span class="request_loader_icon"></span></button>
+            </div>
+        </div>
+    </div>
+<hr/>
+<h3>מצב רישום נוכחי - <strong>אביב 2021/22 (תשפ&quot;ב)</strong></h3>
+<h5><strong>סך הכל נקודות ברישום:</strong> 18.0</h5>
+<ul class="list-group" id="registered_items">
+        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="2"
+            data-course_id="114010"
+            data-group_id="10"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/114010/202102">114010-10: תגליות מדעיות 1</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        1.0 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="2"
+                                    class="alert alert-success h-100"
+                                    role="alert" aria-expanded="false" data-course_id="114010"
+                                    data-group_id="10"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                רשום
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="114010"
+                                    data-group_id="10"
+                            >
+                                    <a
+                                            class="btn bg-danger text-white cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="114010"
+                                            data-requested_status_id="3"
+                                            data-group_id="10"
+                                            data-action="cancel_registration"
+                                    style="font-weight: bolder">
+                                        ביטול רישום
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        שינוי קבוצה: יש קבוצת רישום אחת למקצוע זה
+                    </div>
+                </div>
+            </div>
+        </li>        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="2"
+            data-course_id="114052"
+            data-group_id="22"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/114052/202102">114052-22: פיסיקה 2</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        3.5 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="2"
+                                    class="alert alert-success h-100"
+                                    role="alert" aria-expanded="false" data-course_id="114052"
+                                    data-group_id="22"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                רשום
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="114052"
+                                    data-group_id="22"
+                            >
+                                    <a
+                                            class="btn bg-danger text-white cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="114052"
+                                            data-requested_status_id="3"
+                                            data-group_id="22"
+                                            data-action="cancel_registration"
+                                    style="font-weight: bolder">
+                                        ביטול רישום
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        שינוי קבוצה: <span class="inplaceeditable inplaceeditable-select" data-inplaceeditable="1" data-component="local_tregister" data-itemtype="cart_item" data-itemid="114052"
+    data-value="22" data-editlabel="קבוצת רישום" data-type="select" data-options="[{&quot;key&quot;:10,&quot;value&quot;:&quot;10 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:11,&quot;value&quot;:&quot;11 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:12,&quot;value&quot;:&quot;12 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:13,&quot;value&quot;:&quot;13 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:14,&quot;value&quot;:&quot;14 - 30 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:15,&quot;value&quot;:&quot;15 - 43 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:20,&quot;value&quot;:&quot;20 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:21,&quot;value&quot;:&quot;21 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:22,&quot;value&quot;:&quot;22 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:23,&quot;value&quot;:&quot;23 - 38 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:24,&quot;value&quot;:&quot;24 - 35 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:25,&quot;value&quot;:&quot;25 - 6 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:31,&quot;value&quot;:&quot;31 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:80,&quot;value&quot;:&quot;80 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:86,&quot;value&quot;:&quot;86 - 17 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;}]">
+        
+        <a href="#" class="quickeditlink aalink" data-inplaceeditablelink="1" title="קבוצת רישום">
+            22 - 0 מקומות פנויים
+            <span class="quickediticon visibleifjs"><i class="icon fa fa-pencil fa-fw "  title="קבוצת רישום" aria-label="קבוצת רישום"></i></span>
+        </a>
+</span>
+                    </div>
+                </div>
+            </div>
+        </li>        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="2"
+            data-course_id="234118"
+            data-group_id="11"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/234118/202102">234118-11: ארגון ותכנות המחשב</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        3.0 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="2"
+                                    class="alert alert-success h-100"
+                                    role="alert" aria-expanded="false" data-course_id="234118"
+                                    data-group_id="11"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                רשום
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="234118"
+                                    data-group_id="11"
+                            >
+                                    <a
+                                            class="btn bg-danger text-white cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="234118"
+                                            data-requested_status_id="3"
+                                            data-group_id="11"
+                                            data-action="cancel_registration"
+                                    style="font-weight: bolder">
+                                        ביטול רישום
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        שינוי קבוצה: <span class="inplaceeditable inplaceeditable-select" data-inplaceeditable="1" data-component="local_tregister" data-itemtype="cart_item" data-itemid="234118"
+    data-value="11" data-editlabel="קבוצת רישום" data-type="select" data-options="[{&quot;key&quot;:10,&quot;value&quot;:&quot;10 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:11,&quot;value&quot;:&quot;11 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:12,&quot;value&quot;:&quot;12 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:13,&quot;value&quot;:&quot;13 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:14,&quot;value&quot;:&quot;14 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:20,&quot;value&quot;:&quot;20 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:21,&quot;value&quot;:&quot;21 - 9 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:22,&quot;value&quot;:&quot;22 - 30 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:23,&quot;value&quot;:&quot;23 - 16 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;}]">
+        
+        <a href="#" class="quickeditlink aalink" data-inplaceeditablelink="1" title="קבוצת רישום">
+            11 - 0 מקומות פנויים
+            <span class="quickediticon visibleifjs"><i class="icon fa fa-pencil fa-fw "  title="קבוצת רישום" aria-label="קבוצת רישום"></i></span>
+        </a>
+</span>
+                    </div>
+                </div>
+            </div>
+        </li>        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="2"
+            data-course_id="234123"
+            data-group_id="12"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/234123/202102">234123-12: מערכות הפעלה</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        4.5 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="2"
+                                    class="alert alert-success h-100"
+                                    role="alert" aria-expanded="false" data-course_id="234123"
+                                    data-group_id="12"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                רשום
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="234123"
+                                    data-group_id="12"
+                            >
+                                    <a
+                                            class="btn bg-danger text-white cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="234123"
+                                            data-requested_status_id="3"
+                                            data-group_id="12"
+                                            data-action="cancel_registration"
+                                    style="font-weight: bolder">
+                                        ביטול רישום
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        שינוי קבוצה: <span class="inplaceeditable inplaceeditable-select" data-inplaceeditable="1" data-component="local_tregister" data-itemtype="cart_item" data-itemid="234123"
+    data-value="12" data-editlabel="קבוצת רישום" data-type="select" data-options="[{&quot;key&quot;:10,&quot;value&quot;:&quot;10 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:11,&quot;value&quot;:&quot;11 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:12,&quot;value&quot;:&quot;12 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:13,&quot;value&quot;:&quot;13 - 49 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:20,&quot;value&quot;:&quot;20 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:21,&quot;value&quot;:&quot;21 - 22 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:22,&quot;value&quot;:&quot;22 - 36 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:23,&quot;value&quot;:&quot;23 - 38 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:24,&quot;value&quot;:&quot;24 - 25 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;}]">
+        
+        <a href="#" class="quickeditlink aalink" data-inplaceeditablelink="1" title="קבוצת רישום">
+            12 - 0 מקומות פנויים
+            <span class="quickediticon visibleifjs"><i class="icon fa fa-pencil fa-fw "  title="קבוצת רישום" aria-label="קבוצת רישום"></i></span>
+        </a>
+</span>
+                    </div>
+                </div>
+            </div>
+        </li>        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="2"
+            data-course_id="234247"
+            data-group_id="22"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/234247/202102">234247-22: אלגוריתמים 1</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        3.0 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="2"
+                                    class="alert alert-success h-100"
+                                    role="alert" aria-expanded="false" data-course_id="234247"
+                                    data-group_id="22"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                רשום
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="234247"
+                                    data-group_id="22"
+                            >
+                                    <a
+                                            class="btn bg-danger text-white cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="234247"
+                                            data-requested_status_id="3"
+                                            data-group_id="22"
+                                            data-action="cancel_registration"
+                                    style="font-weight: bolder">
+                                        ביטול רישום
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        שינוי קבוצה: <span class="inplaceeditable inplaceeditable-select" data-inplaceeditable="1" data-component="local_tregister" data-itemtype="cart_item" data-itemid="234247"
+    data-value="22" data-editlabel="קבוצת רישום" data-type="select" data-options="[{&quot;key&quot;:10,&quot;value&quot;:&quot;10 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:11,&quot;value&quot;:&quot;11 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:12,&quot;value&quot;:&quot;12 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:13,&quot;value&quot;:&quot;13 - 18 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:20,&quot;value&quot;:&quot;20 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:21,&quot;value&quot;:&quot;21 - 46 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:22,&quot;value&quot;:&quot;22 - 52 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:23,&quot;value&quot;:&quot;23 - 54 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:24,&quot;value&quot;:&quot;24 - 2 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:25,&quot;value&quot;:&quot;25 - 32 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;},{&quot;key&quot;:26,&quot;value&quot;:&quot;26 - 0 \u05de\u05e7\u05d5\u05de\u05d5\u05ea \u05e4\u05e0\u05d5\u05d9\u05d9\u05dd&quot;}]">
+        
+        <a href="#" class="quickeditlink aalink" data-inplaceeditablelink="1" title="קבוצת רישום">
+            22 - 52 מקומות פנויים
+            <span class="quickediticon visibleifjs"><i class="icon fa fa-pencil fa-fw "  title="קבוצת רישום" aria-label="קבוצת רישום"></i></span>
+        </a>
+</span>
+                    </div>
+                </div>
+            </div>
+        </li>        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="2"
+            data-course_id="324433"
+            data-group_id="10"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/324433/202102">324433-10: השואה בראי הקולנוע</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        2.0 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="2"
+                                    class="alert alert-success h-100"
+                                    role="alert" aria-expanded="false" data-course_id="324433"
+                                    data-group_id="10"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                רשום
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="324433"
+                                    data-group_id="10"
+                            >
+                                    <a
+                                            class="btn bg-danger text-white cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="324433"
+                                            data-requested_status_id="3"
+                                            data-group_id="10"
+                                            data-action="cancel_registration"
+                                    style="font-weight: bolder">
+                                        ביטול רישום
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        שינוי קבוצה: יש קבוצת רישום אחת למקצוע זה
+                    </div>
+                </div>
+            </div>
+        </li>        <li class="list-group-item cart_registration_item" style="padding: 0; margin: 0;"
+            data-status="5"
+            data-state="4"
+            data-course_id="394800"
+            data-group_id="18"
+        >
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-8 col-sm-8 col-md-10 col-lg-5 col-xl-3" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        <a target="_blank" href="/local/technionsearch/course/394800/202102">394800-18: חינוך גופני-כושר בנים</a>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-1 col-xl-1" style="font-weight: bolder; padding: 4px; vertical-align: middle; margin: auto;">
+                        1.0 נק'
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div data-current_state="4"
+                                    class="alert alert-warning h-100"
+                                    role="alert" aria-expanded="false" data-course_id="394800"
+                                    data-group_id="18"
+                                    style="padding: .400rem .400rem; margin: 0; text-align: center;">
+                                רשום, ממתין לשינוי קבוצה
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-2" style="margin: auto;">
+                            <div
+                                    class="btn-group w-100 course_group_actions_only" role="group"
+                                    data-course_id="394800"
+                                    data-group_id="18"
+                            >
+                                    <a
+                                            class="btn bg-warning text-dark cart_btn w-100"
+                                            href="javascript:void(0)"
+                                            data-semester_id="202102"
+                                            data-course_id="394800"
+                                            data-requested_status_id="-1"
+                                            data-group_id="18"
+                                            data-action="cancel_change_group_request"
+                                    style="font-weight: bolder">
+                                        ביטול פעולה
+                                    </a>
+                            </div>                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-4" style="margin: auto;">
+                        
+                    </div>
+                </div>
+            </div>
+        </li></ul></div>
+                    
+                    
+
+                </section>
+            </div>
+        </div>
+    </div>
+    
+    <div id="goto-top-link">
+        <a class="btn btn-light" role="button" href="#">
+            <i class="icon fa fa-arrow-up fa-fw "  title="קפוץ למעלה" aria-label="קפוץ למעלה"></i>
+        </a>
+    </div>
+    <footer id="page-footer" class="py-3 bg-dark text-light">
+        <div class="container">
+            <div id="course-footer"></div>
+    
+    
+            
+            <div class="tool_usertours-resettourcontainer"></div>
+            <div class="sitelink"><a title="Technion Institute of Technology" href="https://students.technion.ac.il"><img src="https://students.technion.ac.il\theme\technion\media\technion_logo_heb.png" alt="The Technion Institute of Technology" /></a></div>
+            <nav class="nav navbar-nav d-md-none" aria-label="תפריט מותאם אישית">
+                    <ul class="list-unstyled pt-3">
+                                        <li><a href="#" title="שפת ממשק">עברית ‎(he)‎</a></li>
+                                    <li>
+                                        <ul class="list-unstyled ml-3">
+                                                            <li><a href="https://students.technion.ac.il/local/tregister/cart?lang=he" title="עברית ‎(he)‎">עברית ‎(he)‎</a></li>
+                                                            <li><a href="https://students.technion.ac.il/local/tregister/cart?lang=en" title="English ‎(en)‎">English ‎(en)‎</a></li>
+                                        </ul>
+                                    </li>
+                    </ul>
+            </nav>
+            
+            <script>
+//<![CDATA[
+var require = {
+    baseUrl : 'https://students.technion.ac.il/lib/requirejs.php/-1/',
+    // We only support AMD modules with an explicit define() statement.
+    enforceDefine: true,
+    skipDataMain: true,
+    waitSeconds : 0,
+
+    paths: {
+        jquery: 'https://students.technion.ac.il/lib/javascript.php/-1/lib/jquery/jquery-3.4.1',
+        jqueryui: 'https://students.technion.ac.il/lib/javascript.php/-1/lib/jquery/ui-1.12.1/jquery-ui',
+        jqueryprivate: 'https://students.technion.ac.il/lib/javascript.php/-1/lib/requirejs/jquery-private'
+    },
+
+    // Custom jquery config map.
+    map: {
+      // '*' means all modules will get 'jqueryprivate'
+      // for their 'jquery' dependency.
+      '*': { jquery: 'jqueryprivate' },
+      // Stub module for 'process'. This is a workaround for a bug in MathJax (see MDL-60458).
+      '*': { process: 'core/first' },
+
+      // 'jquery-private' wants the real jQuery module
+      // though. If this line was not here, there would
+      // be an unresolvable cyclic dependency.
+      jqueryprivate: { jquery: 'jquery' }
+    }
+};
+
+//]]>
+</script>
+<script src="https://students.technion.ac.il/lib/javascript.php/-1/lib/requirejs/require.js"></script>
+<script>
+//<![CDATA[
+M.util.js_pending("core/first");require(['core/first'], function() {
+require(['core/prefetch']);
+;
+M.util.js_pending('local_tregister/cart'); require(['local_tregister/cart'], function(amd) {amd.cart(); M.util.js_complete('local_tregister/cart');});;
+M.util.js_pending('local_technionsearch/gtag_source'); require(['local_technionsearch/gtag_source'], function(amd) {M.util.js_complete('local_technionsearch/gtag_source');});;
+require(["media_videojs/loader"], function(loader) {
+    loader.setUp(function(videojs) {
+        videojs.options.flash.swf = "https://students.technion.ac.il/media/player/videojs/videojs/video-js.swf";
+videojs.addLanguage('he', {
+  "Audio Player": "נַגָּן שמע",
+  "Video Player": "נַגָּן וידאו",
+  "Play": "נַגֵּן",
+  "Pause": "השהה",
+  "Replay": "נַגֵּן שוב",
+  "Current Time": "זמן נוכחי",
+  "Duration": "זמן כולל",
+  "Remaining Time": "זמן נותר",
+  "Stream Type": "סוג Stream",
+  "LIVE": "שידור חי",
+  "Loaded": "נטען",
+  "Progress": "התקדמות",
+  "Progress Bar": "סרגל התקדמות",
+  "progress bar timing: currentTime={1} duration={2}": "{1} מתוך {2}",
+  "Fullscreen": "מסך מלא",
+  "Non-Fullscreen": "מסך לא מלא",
+  "Mute": "השתק",
+  "Unmute": "בטל השתקה",
+  "Playback Rate": "קצב ניגון",
+  "Subtitles": "כתוביות",
+  "subtitles off": "כתוביות כבויות",
+  "Captions": "כיתובים",
+  "captions off": "כיתובים כבויים",
+  "Chapters": "פרקים",
+  "Descriptions": "תיאורים",
+  "descriptions off": "תיאורים כבויים",
+  "Audio Track": "רצועת שמע",
+  "Volume Level": "רמת ווליום",
+  "You aborted the media playback": "ביטלת את השמעת המדיה",
+  "A network error caused the media download to fail part-way.": "שגיאת רשת גרמה להורדת המדיה להיכשל באמצע.",
+  "The media could not be loaded, either because the server or network failed or because the format is not supported.": "לא ניתן לטעון את המדיה, או מכיוון שהרשת או השרת כשלו או מכיוון שהפורמט אינו נתמך.",
+  "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "השמעת המדיה בוטלה בשל בעית השחטת מידע או מכיוון שהמדיה עשתה שימוש בתכונות שהדפדפן שלך לא תמך בהן.",
+  "No compatible source was found for this media.": "לא נמצא מקור תואם עבור מדיה זו.",
+  "The media is encrypted and we do not have the keys to decrypt it.": "המדיה מוצפנת ואין בידינו את המפתח כדי לפענח אותה.",
+  "Play Video": "נַגֵּן וידאו",
+  "Close": "סְגוֹר",
+  "Close Modal Dialog": "סְגוֹר דו-שיח מודאלי",
+  "Modal Window": "חלון מודאלי",
+  "This is a modal window": "זהו חלון מודאלי",
+  "This modal can be closed by pressing the Escape key or activating the close button.": "ניתן לסגור חלון מודאלי זה ע\"י לחיצה על כפתור ה-Escape או הפעלת כפתור הסגירה.",
+  ", opens captions settings dialog": ", פותח חלון הגדרות כיתובים",
+  ", opens subtitles settings dialog": ", פותח חלון הגדרות כתוביות",
+  ", opens descriptions settings dialog": ", פותח חלון הגדרות תיאורים",
+  ", selected": ", נבחר/ו",
+  "captions settings": "הגדרות כיתובים",
+  "subtitles settings": "הגדרות כתוביות",
+  "descriptions settings": "הגדרות תיאורים",
+  "Text": "טקסט",
+  "White": "לבן",
+  "Black": "שחור",
+  "Red": "אדום",
+  "Green": "ירוק",
+  "Blue": "כחול",
+  "Yellow": "צהוב",
+  "Magenta": "מַגֶ'נטָה",
+  "Cyan": "טורקיז",
+  "Background": "רקע",
+  "Window": "חלון",
+  "Transparent": "שקוף",
+  "Semi-Transparent": "שקוף למחצה",
+  "Opaque": "אָטוּם",
+  "Font Size": "גודל גופן",
+  "Text Edge Style": "סגנון קצוות טקסט",
+  "None": "ללא",
+  "Raised": "מורם",
+  "Depressed": "מורד",
+  "Uniform": "אחיד",
+  "Dropshadow": "הטלת צל",
+  "Font Family": "משפחת גופן",
+  "Proportional Sans-Serif": "פרופורציוני וללא תגיות (Proportional Sans-Serif)",
+  "Monospace Sans-Serif": "ברוחב אחיד וללא תגיות (Monospace Sans-Serif)",
+  "Proportional Serif": "פרופורציוני ועם תגיות (Proportional Serif)",
+  "Monospace Serif": "ברוחב אחיד ועם תגיות (Monospace Serif)",
+  "Casual": "אַגָבִי",
+  "Script": "תסריט",
+  "Small Caps": "אותיות קטנות",
+  "Reset": "אִפּוּס",
+  "restore all settings to the default values": "שחזר את כל ההגדרות לערכי ברירת המחדל",
+  "Done": "בוצע",
+  "Caption Settings Dialog": "דו-שיח הגדרות כיתובים",
+  "Beginning of dialog window. Escape will cancel and close the window.": "תחילת חלון דו-שיח. Escape יבטל ויסגור את החלון",
+  "End of dialog window.": "סוף חלון דו-שיח."
+});
+
+    });
+});;
+
+require(['theme_boost/form-display-errors'], function(module) {
+    module.enhance("id_course_id");
+});
+;
+
+require(['theme_boost/form-display-errors'], function(module) {
+    module.enhance("id_group_id");
+});
+;
+
+require(['theme_boost/form-display-errors'], function(module) {
+    module.enhance("id_submitbutton");
+});
+;
+
+        require(['core_form/submit'], function(Submit) {
+            Submit.init("id_submitbutton");
+        });
+;
+
+require(['theme_boost/form-display-errors'], function(module) {
+    module.enhance("fgroup_id_group_1");
+});
+;
+
+require(['jquery'], function($) {
+    $('#fgroup_id_group_1_label').css('cursor', 'default');
+    $('#fgroup_id_group_1_label').click(function() {
+        $('#fgroup_id_group_1')
+            .find('button, a, input:not([type="hidden"]), select, textarea, [tabindex]')
+            .filter(':not([disabled]):not([tabindex="0"]):not([tabindex="-1"])')
+            .first().focus();
+    });
+});
+;
+
+    require(['core/inplace_editable']);
+;
+
+    require(['core/inplace_editable']);
+;
+
+    require(['core/inplace_editable']);
+;
+
+    require(['core/inplace_editable']);
+;
+
+    require(['core/inplace_editable']);
+;
+
+    require(['core/inplace_editable']);
+;
+
+    require(['core/inplace_editable']);
+;
+M.util.js_pending('theme_technion/dark_mode'); require(['theme_technion/dark_mode'], function(amd) {M.util.js_complete('theme_technion/dark_mode');});;
+
+require(['jquery', 'core/custom_interaction_events'], function($, CustomEvents) {
+    CustomEvents.define('#single_select61e84777490f33', [CustomEvents.events.accessibleChange]);
+    $('#single_select61e84777490f33').on(CustomEvents.events.accessibleChange, function() {
+        var ignore = $(this).find(':selected').attr('data-ignore');
+        if (typeof ignore === typeof undefined) {
+            $('#single_select_f61e84777490f32').submit();
+        }
+    });
+});
+;
+
+require(['jquery', 'core/custom_interaction_events'], function($, CustomEvents) {
+    CustomEvents.define('#single_select61e84777490f311', [CustomEvents.events.accessibleChange]);
+    $('#single_select61e84777490f311').on(CustomEvents.events.accessibleChange, function() {
+        var ignore = $(this).find(':selected').attr('data-ignore');
+        if (typeof ignore === typeof undefined) {
+            $('#single_select_f61e84777490f310').submit();
+        }
+    });
+});
+;
+
+M.util.js_pending('theme_boost/loader');
+require(['theme_boost/loader'], function() {
+    M.util.js_complete('theme_boost/loader');
+});
+
+M.util.js_pending('theme_boost/drawer');
+require(['theme_boost/drawer'], function(drawer) {
+    drawer.init();
+    M.util.js_complete('theme_boost/drawer');
+});
+;
+M.util.js_pending('core/notification'); require(['core/notification'], function(amd) {amd.init(1, [], true); M.util.js_complete('core/notification');});;
+M.util.js_pending('core/log'); require(['core/log'], function(amd) {amd.setConfig({"level":"warn"}); M.util.js_complete('core/log');});;
+M.util.js_pending('core/page_global'); require(['core/page_global'], function(amd) {amd.init(); M.util.js_complete('core/page_global');});M.util.js_complete("core/first");
+});
+//]]>
+</script>
+<script>
+//<![CDATA[
+M.str = {"moodle":{"lastmodified":"\u05e9\u05d9\u05e0\u05d5\u05d9 \u05d0\u05d7\u05e8\u05d5\u05df","name":"\u05e9\u05dd","error":"\u05d8\u05e2\u05d5\u05ea","info":"\u05de\u05d9\u05d3\u05e2","yes":"\u05db\u05df","no":"\u05dc\u05d0","changesmadereallygoaway":"\u05d4\u05ea\u05d1\u05e6\u05e2\u05d5 \u05e9\u05d9\u05e0\u05d5\u05d9\u05d9\u05dd \u05d1\u05ea\u05d5\u05db\u05df \u05d4\u05e2\u05de\u05d5\u05d3. \u05d4\u05d0\u05dd \u05ea\u05e8\u05e6\u05d5 \u05dc\u05d4\u05de\u05e9\u05d9\u05da \u05dc\u05e2\u05de\u05d5\u05d3 \u05d0\u05d7\u05e8 \u05d0\u05d5 \u05dc\u05dc\u05d0 \u05e9\u05de\u05d9\u05e8\u05ea \u05d4\u05e9\u05d9\u05e0\u05d5\u05d9\u05d9\u05dd?","cancel":"\u05d1\u05d9\u05d8\u05d5\u05dc","confirm":"\u05d0\u05d9\u05e9\u05d5\u05e8","areyousure":"\u05d4\u05d0\u05dd \u05d0\u05ea\/\u05d4 \u05d1\u05d8\u05d5\u05d7\/\u05d4?","closebuttontitle":"\u05e1\u05d2\u05d9\u05e8\u05d4","unknownerror":"\u05e9\u05d2\u05d9\u05d0\u05d4 \u05dc\u05d0 \u05d9\u05d3\u05d5\u05e2\u05d4","file":"\u05e7\u05d5\u05d1\u05e5","url":"URL"},"repository":{"type":"\u05e1\u05d5\u05d2","size":"\u05d2\u05d5\u05d3\u05dc","invalidjson":"\u05ea\u05e7\u05dc\u05ea \u05ea\u05e7\u05e9\u05d5\u05e8\u05ea. \u05d0\u05e0\u05d0 \u05d4\u05ea\u05d7\u05d1\u05e8\u05d5 \u05e9\u05d5\u05d1 \u05dc\u05de\u05e2\u05e8\u05db\u05ea.","nofilesattached":"\u05dc\u05d0 \u05e0\u05d1\u05d7\u05e8\u05d5 \u05e7\u05d1\u05e6\u05d9\u05dd","filepicker":"\u05d1\u05d7\u05d9\u05e8\u05ea \u05e7\u05d5\u05d1\u05e5","logout":"\u05d4\u05ea\u05e0\u05ea\u05e7\u05d5\u05ea","nofilesavailable":"\u05de\u05d0\u05d2\u05e8 \u05d4\u05e7\u05d1\u05e6\u05d9\u05dd \u05e8\u05d9\u05e7","norepositoriesavailable":"\u05de\u05e6\u05d8\u05e2\u05e8\u05d9\u05dd, \u05d0\u05e3 \u05d0\u05d7\u05d3 \u05de\u05d4\u05de\u05d0\u05d2\u05e8\u05d9\u05dd \u05d4\u05e0\u05d5\u05db\u05d7\u05d9\u05d9\u05dd \u05e9\u05dc\u05da \u05d9\u05db\u05d5\u05dc \u05dc\u05d4\u05d7\u05d6\u05d9\u05e8 \u05e7\u05d1\u05e6\u05d9\u05dd \u05d1\u05ea\u05d1\u05e0\u05d9\u05ea \u05d4\u05de\u05d1\u05d5\u05e7\u05e9\u05ea","fileexistsdialogheader":"\u05e7\u05d1\u05e6\u05d9\u05dd \u05e7\u05d9\u05d9\u05de\u05d9\u05dd","fileexistsdialog_editor":"\u05e7\u05d5\u05d1\u05e5 \u05d1\u05e2\u05dc \u05e9\u05dd \u05d6\u05d4\u05d4 \u05e6\u05d5\u05e8\u05e3 \u05db\u05d1\u05e8 \u05dc\u05ea\u05d5\u05db\u05df \u05e9\u05d4\u05d9\u05e0\u05da \u05e2\u05d5\u05de\u05d3\/\u05ea \u05dc\u05e2\u05e8\u05d5\u05da.","fileexistsdialog_filemanager":"\u05e7\u05d5\u05d1\u05e5 \u05d1\u05e2\u05dc \u05e9\u05dd \u05d6\u05d4\u05d4 \u05e7\u05d9\u05d9\u05dd \u05d1\u05de\u05e2\u05e8\u05db\u05ea","renameto":"\u05e9\u05d9\u05e0\u05d5\u05d9 \u05e9\u05dd \u05dc: \"{$a}\"","referencesexist":"{$a} \u05e7\u05d1\u05e6\u05d9\u05dd \u05de\u05e7\u05d5\u05e9\u05e8\u05d9\u05dd \u05dc\u05e7\u05d5\u05d1\u05e5 \u05d6\u05d4, \u05d4\u05de\u05e9\u05de\u05e9 \u05db\u05de\u05e7\u05d5\u05e8 \u05e9\u05dc\u05d4\u05dd","select":"\u05d1\u05d7\u05d9\u05e8\u05d4"},"admin":{"confirmdeletecomments":"\u05d4\u05d9\u05e0\u05da \u05e2\u05d5\u05de\u05d3 \u05dc\u05de\u05d7\u05d5\u05e7 \u05d4\u05e2\u05e8\u05d5\u05ea, \u05d4\u05d0\u05dd \u05d0\u05ea\u05d4 \u05d1\u05d8\u05d5\u05d7?","confirmation":"\u05d0\u05d9\u05e9\u05d5\u05e8"},"debug":{"debuginfo":"Debug info","line":"Line","stacktrace":"Stack trace"},"langconfig":{"labelsep":":"}};
+//]]>
+</script>
+<script>
+//<![CDATA[
+(function() {Y.use("moodle-filter_mathjaxloader-loader",function() {M.filter_mathjaxloader.configure({"mathjaxconfig":"\nMathJax.Hub.Config({\n    config: [\"Accessible.js\", \"Safe.js\"],\n    errorSettings: { message: [\"!\"] },\n    skipStartupTypeset: true,\n    messageStyle: \"none\"\n});\n","lang":"he"});
+});
+Y.use("moodle-core-formchangechecker",function() {M.core_formchangechecker.init({"formid":"mform1_Vptbulyp2OdBAAV","initialdirtystate":false});
+});
+M.util.help_popups.setup(Y);
+ M.util.js_pending('random61e84777490f312'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random61e84777490f312'); });
+})();
+//]]>
+</script>
+
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
