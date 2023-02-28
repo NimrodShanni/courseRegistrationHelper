@@ -4,11 +4,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 import tkinter as tk
 from tkinter import messagebox
 
-class Gui:
+class HelperGui:
     def __init__(self):
 
         self.root = tk.Tk()
@@ -29,7 +30,7 @@ class Gui:
         self.entered_courses_label = tk.Label(self.root, text = "Selected courses:", font = ("Calibri", 12))
         self.entered_courses_label.place(x = 10, y = 220)
         self.entered_courses_dynamic_label = tk.Label(self.root, text = "None", fg = "red", font = ("Calibri", 12))
-        self.entered_courses_dynamic_label.place(x = 135, y = 220)
+        self.entered_courses_dynamic_label.place(x = 132, y = 220)
         self.status_label = tk.Label(self.root, text = "Status:", font = ("Calibri", 12))
         self.status_label.place(x = 10, y = 300)
         self.status_dynamic_label = tk.Label(self.root, text = "Standby", fg = "red", font = ("Calibri", 12))
@@ -56,11 +57,12 @@ class Gui:
         self.courses_clear_button = tk.Button(self.root, text = "Clear", bd = 3, font = ("Calibri", 12), command = self.courses_clear_click)
         self.courses_clear_button.place(x = 379, y = 180)
         self.start_button = tk.Button(self.root, text = "Start", fg = "green", width = 8, bd = 5, font = ("Calibri", 16), command = self.start_click)
-        self.start_button.place(x = 315, y = 285)
+        self.start_button.place(x = 420, y = 285)
         self.stop_button = tk.Button(self.root, text = "Stop", fg = "red", width = 8, bd = 5, font = ("Calibri", 16), command = self.stop_click)
-        self.stop_button.place(x = 420, y = 285)
+        self.stop_button.place(x = 315, y = 285)
 
         self.root.after(200, self.register_handler)
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.mainloop()
         
     def login_click(self):
@@ -95,6 +97,9 @@ class Gui:
         if self.helper is not None:
             if self.helper.enable:
                 self.helper.register()
+            else:
+                self.status_dynamic_label["text"] = "Standby" #
+                self.status_dynamic_label["fg"] = "red"       # when a a successful registration has occurred
         self.root.after(10000, self.register_handler)
 
     def start_click(self):
@@ -113,6 +118,11 @@ class Gui:
         else:
             messagebox.showinfo(title = "Error", message = "driver is not running")
 
+    def on_closing(self):
+        if self.helper is not None:
+            self.helper.driver.quit()
+        self.root.destroy()
+
 
 class Helper:
     def __init__(self, email:str, password:str):
@@ -121,9 +131,10 @@ class Helper:
         self.course_list = [""]
         self.PATH = "C:\Program Files (x86)\chromedriver.exe"
         self.TIMEOUT = 10
-        self.REGISTRATION_TIMEOUT = 30
+        self.REGISTRATION_TIMEOUT = 20
         self.IS_AVAILABLE = "text-success"
         self.login(email, password)
+        self.action = ActionChains(self.driver)
 
     def login(self, email:str, password:str) -> None:
         self.driver = webdriver.Chrome(self.PATH)
@@ -144,7 +155,7 @@ class Helper:
         self.driver.get("https://students.technion.ac.il/local/technionsearch/course/" + course_number)
 
 
-    def get_spans_xpath(self):
+    def get_spans_xpath(self) -> tuple[list,str]:
         SPANS_XPATH = "/html/body/div[2]/div[3]/div/div/section/div/div/div[3]/div/div[1]/div/span"
         groups = self.driver.find_elements(By.XPATH, SPANS_XPATH)
         if len(groups) == 0:
@@ -154,8 +165,8 @@ class Helper:
     
 
     def is_group_available(self, course_number:str, group_number:str) -> bool:
-        Helper.get_to_course_page(self, course_number)
-        groups, SPANS_XPATH = Helper.get_spans_xpath(self)
+        self.get_to_course_page(course_number)
+        groups, SPANS_XPATH = self.get_spans_xpath()
         result = False
         for index in range(len(groups)):
             if self.driver.find_element(By.XPATH, SPANS_XPATH + "[" + str(index+1) + "]/div/table/tbody/tr/td[1]/table/tbody/tr[2]/td/div").get_attribute("data-group_id") == group_number and self.driver.find_element(By.XPATH, SPANS_XPATH + "[" + str(index+1) + "]/div/table/tbody/tr/td[1]/table/tbody/tr[1]/td[2]/div[2]").get_attribute("class") == self.IS_AVAILABLE:
@@ -165,39 +176,48 @@ class Helper:
 
     def checkout_cart(self) -> None:
         self.driver.get("https://students.technion.ac.il/local/tregister/cart")
-        WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.ID, "process_cart_item_request"))).click()
+        self.action.double_click(WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.ID, "process_cart_item_request")))).perform()
         time.sleep(self.REGISTRATION_TIMEOUT)
 
 
+    def add_to_cart(self, course_number:str, group_number:str) -> None:
+        self.driver.get("https://students.technion.ac.il/local/tregister/cart")
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_element_located((By.ID, "id_course_id"))).send_keys(course_number)
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_element_located((By.ID, "id_group_id"))).send_keys(group_number)
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.ID, "id_submitbutton"))).click()
 
-    # # release version
-    # def register(self, single_course_registration:bool) -> None:
+
+    # release version
+    def register(self, single_course_registration:bool = True) -> None:
+        for course in self.course_list:
+            course_elements = course.split("-")
+            if self.is_group_available(course_elements[0], course_elements[1]):
+                self.add_to_cart(course_elements[0], course_elements[1])
+                self.checkout_cart()
+                if single_course_registration:
+                    self.enable = False
+                    break
+                else:
+                    self.course_list.remove(course)
+                    break
+
+
+    # # version with printing instead of checking out
+    # def register(self, single_course_registration:bool = True) -> None:
     #     for course in self.course_list:
     #         course_elements = course.split("-")
-    #         if Helper().is_group_available(self, course_elements[0], course_elements[1]):
-    #             Helper().checkout_cart(self)
+    #         if self.is_group_available(course_elements[0], course_elements[1]):
+    #             self.add_to_cart(course_elements[0], course_elements[1])
+    #             print("registered: " + course)
     #             if single_course_registration:
     #                 self.enable = False
     #             else:
     #                 self.course_list.remove(course)
     #                 break
-
-
-    # version with printing instead of checking out
-    def register(self, single_course_registration:bool = True) -> None:
-        for course in self.course_list:
-            course_elements = course.split("-")
-            if Helper.is_group_available(self, course_elements[0], course_elements[1]):
-                print("registered: " + course)
-                if single_course_registration:
-                    self.enable = False
-                else:
-                    self.course_list.remove(course)
-                    break
-            else:
-                print("no room at: " + course)
+    #         else:
+    #             print("no room at: " + course)
 
 
 
 #------------main------------
-Gui()
+HelperGui()
