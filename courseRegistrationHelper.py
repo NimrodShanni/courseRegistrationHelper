@@ -224,6 +224,7 @@ class Helper:
             self.driver.quit()
 
     def get_spans_xpath(self) -> tuple[list,str]:
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_all_elements_located((By.XPATH, "/html/body/div[2]/div[3]/div/div/section/div/div/div")))
         SPANS_XPATH = "/html/body/div[2]/div[3]/div/div/section/div/div/div[3]/div/div[1]/div/span"
         groups = self.driver.find_elements(By.XPATH, SPANS_XPATH)
         if len(groups) == 0:
@@ -233,10 +234,12 @@ class Helper:
     
     def is_group_available(self, course_number:str, group_number:str) -> bool:
         self.driver.get("https://students.technion.ac.il/local/technionsearch/course/" + course_number)
+        GROUP_NUMBER_XPATH = "/div/table/tbody/tr/td[1]/table/tbody/tr[2]/td/div"
+        AVAILABLE_POSITIONS_XPATH = "/div/table/tbody/tr/td[1]/table/tbody/tr[1]/td[2]/div[2]"
         groups, SPANS_XPATH = self.get_spans_xpath()
         result = False
         for index in range(len(groups)):
-            if self.driver.find_element(By.XPATH, SPANS_XPATH + "[" + str(index+1) + "]/div/table/tbody/tr/td[1]/table/tbody/tr[2]/td/div").get_attribute("data-group_id") == group_number and self.driver.find_element(By.XPATH, SPANS_XPATH + "[" + str(index+1) + "]/div/table/tbody/tr/td[1]/table/tbody/tr[1]/td[2]/div[2]").get_attribute("class") == self.IS_AVAILABLE:
+            if self.driver.find_element(By.XPATH, SPANS_XPATH + "[" + str(index+1) + "]" + GROUP_NUMBER_XPATH).get_attribute("data-group_id") == group_number and self.driver.find_element(By.XPATH, SPANS_XPATH + "[" + str(index+1) + "]" + AVAILABLE_POSITIONS_XPATH).get_attribute("class") == self.IS_AVAILABLE:
                 result = True
         return result
 
@@ -261,7 +264,7 @@ class Helper:
             self.driver.get(required_url)
         COURSES_XPATH_PREFIX = "/html/body/div[2]/div[3]/div/div/section/div/ul[2]/li"
         COURSES_XPATH_SUFFIX = "/div/div/div[4]/div/a"
-        existing_courses = self.driver.find_elements(By.XPATH, COURSES_XPATH_PREFIX)
+        existing_courses = WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_all_elements_located((By.XPATH, COURSES_XPATH_PREFIX)))
         for index in range(len(existing_courses)):
             elem = self.driver.find_element(By.XPATH, COURSES_XPATH_PREFIX + "[" + str(index+1) + "]" + COURSES_XPATH_SUFFIX)
             if elem.get_attribute("data-course_id") == course.split("-")[0] and elem.get_attribute("data-group_id") == course.split("-")[1]:

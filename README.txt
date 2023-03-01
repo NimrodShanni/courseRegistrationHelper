@@ -1,6 +1,4 @@
-for chrome version 110. 
-
-if a newer version exists, download update from:
+before using download chromedriver from here:
 https://chromedriver.chromium.org/downloads
 and put the exe file in "C:\Program Files (x86)\chromedriver.exe"
 
