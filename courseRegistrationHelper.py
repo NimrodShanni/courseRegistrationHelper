@@ -13,54 +13,79 @@ class HelperGui:
     def __init__(self):
 
         self.root = tk.Tk()
-        self.root.geometry("535x370")
+        self.root.geometry("535x495")
         self.root.title("Registration Helper")
 
         self.helper = None
         self.driver = None
+        self.radio_variable = tk.StringVar()
+        self.replacement_course = ""
 
         self.email_label = tk.Label(self.root, text = "Email:", font = ("Calibri", 14))
         self.email_label.place(x = 10, y = 10)
         self.password_label = tk.Label(self.root, text = "Password:", font = ("Calibri", 14))
         self.password_label.place(x = 10, y = 56)
-        self.enter_courses_label = tk.Label(self.root, text = "Enter wanted courses in the following format -", font = ("Calibri", 14))
-        self.enter_courses_label.place(x = 10, y = 120)
-        self.courses_example_label = tk.Label(self.root, text = '"234124-13, 394804-18, 114804-12, ..."', font = ("Calibri", 12))
-        self.courses_example_label.place(x = 10, y = 150)
+        self.enter_courses_label = tk.Label(self.root, text = "Enter wanted courses -", font = ("Calibri", 16))
+        self.enter_courses_label.place(x = 10, y = 280)
         self.entered_courses_label = tk.Label(self.root, text = "Selected courses:", font = ("Calibri", 12))
-        self.entered_courses_label.place(x = 10, y = 220)
+        self.entered_courses_label.place(x = 10, y = 360)
         self.entered_courses_dynamic_label = tk.Label(self.root, text = "None", fg = "red", font = ("Calibri", 12))
-        self.entered_courses_dynamic_label.place(x = 132, y = 220)
-        self.status_label = tk.Label(self.root, text = "Status:", font = ("Calibri", 12))
-        self.status_label.place(x = 10, y = 300)
-        self.status_dynamic_label = tk.Label(self.root, text = "Standby", fg = "red", font = ("Calibri", 12))
-        self.status_dynamic_label.place(x = 62, y = 300)
+        self.entered_courses_dynamic_label.place(x = 132, y = 360)
+        self.replacement_course_dynamic_label = tk.Label(self.root, fg = "green", font = ("Calibri", 12))
+        self.status_label = tk.Label(self.root, text = "Status:", font = ("Calibri", 14))
+        self.status_label.place(x = 40, y = 434)
+        self.status_dynamic_label = tk.Label(self.root, text = "Standby", fg = "red", font = ("Calibri", 14))
+        self.status_dynamic_label.place(x = 102, y = 434)
+        self.operation_mode_label = tk.Label(self.root, text = "Operation mode:", font = ("Calibri", 16))
+        self.operation_mode_label.place(x = 10, y = 120)
         self.form_split1_label = tk.Label(self.root, text = "----------------------------------------------------------------------------------------------------------", font = ("Calibri", 12))
         self.form_split1_label.place(x = -1, y = 97)
         self.form_split2_label = tk.Label(self.root, text = "----------------------------------------------------------------------------------------------------------", font = ("Calibri", 12))
-        self.form_split2_label.place(x = -1, y = 240)
+        self.form_split2_label.place(x = -1, y = 250)
+        self.form_split3_label = tk.Label(self.root, text = "----------------------------------------------------------------------------------------------------------", font = ("Calibri", 12))
+        self.form_split3_label.place(x = -1, y = 390)
 
         self.user_name_entry = tk.Entry(self.root, width = 40, font = ("Calibri", 14))
         self.user_name_entry.place(x = 105, y = 10)
         self.user_name_entry.focus()
         self.password_entry = tk.Entry(self.root, width = 27, show = "*", font = ("Calibri", 14))
         self.password_entry.place(x = 105, y = 56)
-        self.courses_entry = tk.Entry(self.root, width = 45, font = ("Calibri", 12))
-        self.courses_entry.place(x = 10, y = 185)
+        self.courses_entry = tk.Entry(self.root, width = 45, fg = "grey", font = ("Calibri", 12))
+        self.courses_entry.insert(0, '"234124-13, 394804-18, 114804-12, ..."')
+        self.courses_entry.place(x = 10, y = 325)
+        self.replace_course_entry = tk.Entry(self.root, width = 15, fg = "grey", font = ("Calibri", 12))
+        self.replace_course_entry.insert(0, '"234124-19"')
+        self.replace_course_entry.place(x = 170, y = 218)
 
         self.login_button = tk.Button(self.root, text = "Login", bd = 3, font = ("Calibri", 14), command = self.login_click)
         self.login_button.place(x = 455, y = 50)
         self.login_clear_button = tk.Button(self.root, text = "Clear", bd = 3, font = ("Calibri", 14), command = self.login_clear_click)
         self.login_clear_button.place(x = 395, y = 50)
         self.enter_courses_button = tk.Button(self.root, text = "Enter courses", bd = 3, font = ("Calibri", 12), command = self.enter_courses_click)
-        self.enter_courses_button.place(x = 429, y = 180)
+        self.enter_courses_button.place(x = 429, y = 320)
         self.courses_clear_button = tk.Button(self.root, text = "Clear", bd = 3, font = ("Calibri", 12), command = self.courses_clear_click)
-        self.courses_clear_button.place(x = 379, y = 180)
+        self.courses_clear_button.place(x = 379, y = 320)
+        self.replacement_enter_button = tk.Button(self.root, text = "Enter", bd = 3, font = ("Calibri", 12), command = self.replacement_enter_click)
+        self.replacement_enter_button.place(x = 352, y = 214)
+        self.replacement_clear_button = tk.Button(self.root, text = "Clear", bd = 3, font = ("Calibri", 12), command = self.replacement_clear_click)
+        self.replacement_clear_button.place(x = 300, y = 214)
         self.start_button = tk.Button(self.root, text = "Start", fg = "green", width = 8, bd = 5, font = ("Calibri", 16), command = self.start_click)
-        self.start_button.place(x = 420, y = 285)
+        self.start_button.place(x = 420, y = 422)
         self.stop_button = tk.Button(self.root, text = "Stop", fg = "red", width = 8, bd = 5, font = ("Calibri", 16), command = self.stop_click)
-        self.stop_button.place(x = 315, y = 285)
+        self.stop_button.place(x = 315, y = 422)
 
+        self.add_course_radio = tk.Radiobutton(self.root, text = "Add single course", font = ("Calibri", 14), variable = self.radio_variable, value = "add_course")
+        self.add_course_radio.place(x = 10, y = 150)
+        self.add_course_radio.select()
+        self.add_courses_radio = tk.Radiobutton(self.root, text = "Add multiple courses", font = ("Calibri", 14), variable = self.radio_variable, value = "add_courses")
+        self.add_courses_radio.place(x = 10, y = 180)
+        self.replace_course_radio = tk.Radiobutton(self.root, text = "Replace course:", font = ("Calibri", 14), variable = self.radio_variable, value = "replace_course")
+        self.replace_course_radio.place(x = 10, y = 210)
+
+        self.courses_entry.bind("<FocusIn>", self.handle_courses_entry_focus_in)
+        self.courses_entry.bind("<FocusOut>", self.handle_courses_entry_focus_out)
+        self.replace_course_entry.bind("<FocusIn>", self.handle_replace_course_entry_focus_in)
+        self.replace_course_entry.bind("<FocusOut>", self.handle_replace_course_entry_focus_out)
         self.root.after(200, self.register_handler)
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.mainloop()
@@ -79,19 +104,22 @@ class HelperGui:
         self.password_entry.delete(0, tk.END)
 
     def enter_courses_click(self):
-        if self.helper is not None:
-            self.helper.course_list = self.courses_entry.get().split(", ")
-            if self.helper.course_list == [""]:
-                self.entered_courses_dynamic_label["fg"] = "red"
-                self.entered_courses_dynamic_label["text"] = "None"
+        if self.courses_entry["fg"] != "grey":
+            if self.helper is not None:
+                self.helper.course_list = self.courses_entry.get().split(", ")
+                if self.helper.course_list == [""]:
+                    self.entered_courses_dynamic_label["fg"] = "red"
+                    self.entered_courses_dynamic_label["text"] = "None"
+                else:
+                    self.entered_courses_dynamic_label["fg"] = "green"
+                    self.entered_courses_dynamic_label["text"] = ", ".join(self.helper.course_list)
             else:
-                self.entered_courses_dynamic_label["fg"] = "green"
-                self.entered_courses_dynamic_label["text"] = ", ".join(self.helper.course_list)
-        else:
-            messagebox.showinfo(title = "Error", message = "Login first")
+                messagebox.showinfo(title = "Error", message = "Login first")
 
     def courses_clear_click(self):
-        self.courses_entry.delete(0, tk.END)
+        if self.courses_entry["fg"] != "grey":
+            self.courses_entry.delete(0, tk.END)
+            self.handle_courses_entry_focus_out()
 
     def register_handler(self):
         if self.helper is not None:
@@ -108,7 +136,7 @@ class HelperGui:
             self.status_dynamic_label["fg"] = "green"
             self.helper.enable = True
         else:
-            messagebox.showinfo(title = "Error", message = "driver is not running")
+            messagebox.showinfo(title = "Error", message = "Driver is not running")
 
     def stop_click(self):
         if self.helper is not None:
@@ -116,12 +144,43 @@ class HelperGui:
             self.status_dynamic_label["fg"] = "red"
             self.helper.enable = False
         else:
-            messagebox.showinfo(title = "Error", message = "driver is not running")
+            messagebox.showinfo(title = "Error", message = "Driver is not running")
 
     def on_closing(self):
         if self.helper is not None:
             self.helper.driver.quit()
         self.root.destroy()
+
+    def replacement_enter_click(self):
+        if self.replace_course_entry["fg"] != "grey":
+            self.replacement_course = self.replace_course_entry.get()
+            if self.replacement_course != "":
+                self.replacement_course_dynamic_label["text"] = "Set: " + self.replacement_course
+                self.replacement_course_dynamic_label.place(x = 406, y = 217)
+
+    def replacement_clear_click(self):
+        self.replace_course_entry.delete(0, tk.END)
+        self.replacement_course = ""
+        self.replacement_course_dynamic_label.place_forget()
+        self.handle_replace_course_entry_focus_out()
+
+    def handle_courses_entry_focus_in(self, event = None):
+        self.courses_entry.delete(0, tk.END)
+        self.courses_entry["fg"] = "black"
+
+    def handle_courses_entry_focus_out(self, event = None):
+        self.courses_entry.delete(0, tk.END)
+        self.courses_entry["fg"] = "grey"
+        self.courses_entry.insert(0, '"234124-13, 394804-18, 114804-12, ..."')
+
+    def handle_replace_course_entry_focus_in(self, event = None):
+        self.replace_course_entry.delete(0, tk.END)
+        self.replace_course_entry["fg"] = "black"
+
+    def handle_replace_course_entry_focus_out(self, event = None):
+        self.replace_course_entry.delete(0, tk.END)
+        self.replace_course_entry["fg"] = "grey"
+        self.replace_course_entry.insert(0, '"234124-19"')
 
 
 class Helper:
