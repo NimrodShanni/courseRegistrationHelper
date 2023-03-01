@@ -20,6 +20,8 @@ class HelperGui:
         self.driver = None
         self.radio_variable = tk.StringVar()
         self.replacement_course = ""
+        self.DEFAULT_FREQUENCY = 90
+        self.frequency = 1
 
         self.email_label = tk.Label(self.root, text = "Email:", font = ("Calibri", 14))
         self.email_label.place(x = 10, y = 10)
@@ -33,11 +35,15 @@ class HelperGui:
         self.entered_courses_dynamic_label.place(x = 132, y = 360)
         self.replacement_course_dynamic_label = tk.Label(self.root, fg = "green", font = ("Calibri", 12))
         self.status_label = tk.Label(self.root, text = "Status:", font = ("Calibri", 14))
-        self.status_label.place(x = 40, y = 434)
+        self.status_label.place(x = 10, y = 454)
         self.status_dynamic_label = tk.Label(self.root, text = "Standby", fg = "red", font = ("Calibri", 14))
-        self.status_dynamic_label.place(x = 102, y = 434)
+        self.status_dynamic_label.place(x = 72, y = 454)
         self.operation_mode_label = tk.Label(self.root, text = "Operation mode:", font = ("Calibri", 16))
         self.operation_mode_label.place(x = 10, y = 120)
+        self.operating_frequency_label = tk.Label(self.root, text = "Operating frequency:", font = ("Calibri", 14))
+        self.operating_frequency_label.place(x = 10, y = 420)
+        self.operating_frequency_seconds_label = tk.Label(self.root, text = "seconds.", font = ("Calibri", 14))
+        self.operating_frequency_seconds_label.place(x = 220, y = 420)
         self.form_split1_label = tk.Label(self.root, text = "----------------------------------------------------------------------------------------------------------", font = ("Calibri", 12))
         self.form_split1_label.place(x = -1, y = 97)
         self.form_split2_label = tk.Label(self.root, text = "----------------------------------------------------------------------------------------------------------", font = ("Calibri", 12))
@@ -56,6 +62,9 @@ class HelperGui:
         self.replace_course_entry = tk.Entry(self.root, width = 15, fg = "grey", font = ("Calibri", 12))
         self.replace_course_entry.insert(0, '"234124-19"')
         self.replace_course_entry.place(x = 170, y = 218)
+        self.frequency_entry = tk.Entry(self.root, width = 3,font = ("Calibri", 12))
+        self.frequency_entry.place(x = 187, y = 423)
+        self.frequency_entry.insert(0, self.DEFAULT_FREQUENCY)
 
         self.login_button = tk.Button(self.root, text = "Login", bd = 3, font = ("Calibri", 14), command = self.login_click)
         self.login_button.place(x = 455, y = 50)
@@ -74,10 +83,10 @@ class HelperGui:
         self.stop_button = tk.Button(self.root, text = "Stop", fg = "red", width = 8, bd = 5, font = ("Calibri", 16), command = self.stop_click)
         self.stop_button.place(x = 315, y = 422)
 
-        self.add_course_radio = tk.Radiobutton(self.root, text = "Add single course", font = ("Calibri", 14), variable = self.radio_variable, value = "add_course")
+        self.add_course_radio = tk.Radiobutton(self.root, text = "Add single course", font = ("Calibri", 14), variable = self.radio_variable, value = "add_single_course")
         self.add_course_radio.place(x = 10, y = 150)
         self.add_course_radio.select()
-        self.add_courses_radio = tk.Radiobutton(self.root, text = "Add multiple courses", font = ("Calibri", 14), variable = self.radio_variable, value = "add_courses")
+        self.add_courses_radio = tk.Radiobutton(self.root, text = "Add multiple courses", font = ("Calibri", 14), variable = self.radio_variable, value = "add_multiple_courses")
         self.add_courses_radio.place(x = 10, y = 180)
         self.replace_course_radio = tk.Radiobutton(self.root, text = "Replace course:", font = ("Calibri", 14), variable = self.radio_variable, value = "replace_course")
         self.replace_course_radio.place(x = 10, y = 210)
@@ -119,21 +128,23 @@ class HelperGui:
     def courses_clear_click(self):
         if self.courses_entry["fg"] != "grey":
             self.courses_entry.delete(0, tk.END)
-            self.handle_courses_entry_focus_out()
 
     def register_handler(self):
         if self.helper is not None:
             if self.helper.enable:
-                self.helper.register()
+                self.helper.register(self.radio_variable.get(), self.replace_course_entry.get())
             else:
                 self.status_dynamic_label["text"] = "Standby" #
-                self.status_dynamic_label["fg"] = "red"       # when a a successful registration has occurred
-        self.root.after(10000, self.register_handler)
+                self.status_dynamic_label["fg"] = "red"       # when all registrations are completed
+        self.root.after(int(self.frequency)*1000, self.register_handler)
 
     def start_click(self):
         if self.helper is not None:
             self.status_dynamic_label["text"] = "Running"
             self.status_dynamic_label["fg"] = "green"
+            if self.frequency_entry.get() == "":
+                self.frequency_entry.insert(0, self.DEFAULT_FREQUENCY)
+            self.frequency = int(self.frequency_entry.get())
             self.helper.enable = True
         else:
             messagebox.showinfo(title = "Error", message = "Driver is not running")
@@ -162,25 +173,28 @@ class HelperGui:
         self.replace_course_entry.delete(0, tk.END)
         self.replacement_course = ""
         self.replacement_course_dynamic_label.place_forget()
-        self.handle_replace_course_entry_focus_out()
 
     def handle_courses_entry_focus_in(self, event = None):
-        self.courses_entry.delete(0, tk.END)
-        self.courses_entry["fg"] = "black"
+        if self.courses_entry.get() == '"234124-13, 394804-18, 114804-12, ..."':
+            self.courses_entry.delete(0, tk.END)
+            self.courses_entry["fg"] = "black"
 
     def handle_courses_entry_focus_out(self, event = None):
-        self.courses_entry.delete(0, tk.END)
-        self.courses_entry["fg"] = "grey"
-        self.courses_entry.insert(0, '"234124-13, 394804-18, 114804-12, ..."')
+        if self.courses_entry.get() == "":
+            self.courses_entry.delete(0, tk.END)
+            self.courses_entry["fg"] = "grey"
+            self.courses_entry.insert(0, '"234124-13, 394804-18, 114804-12, ..."')
 
     def handle_replace_course_entry_focus_in(self, event = None):
-        self.replace_course_entry.delete(0, tk.END)
-        self.replace_course_entry["fg"] = "black"
+        if self.replace_course_entry.get() == '"234124-19"':
+            self.replace_course_entry.delete(0, tk.END)
+            self.replace_course_entry["fg"] = "black"
 
     def handle_replace_course_entry_focus_out(self, event = None):
-        self.replace_course_entry.delete(0, tk.END)
-        self.replace_course_entry["fg"] = "grey"
-        self.replace_course_entry.insert(0, '"234124-19"')
+        if self.replace_course_entry.get() == "":
+            self.replace_course_entry.delete(0, tk.END)
+            self.replace_course_entry["fg"] = "grey"
+            self.replace_course_entry.insert(0, '"234124-19"')
 
 
 class Helper:
@@ -209,11 +223,6 @@ class Helper:
         except:
             self.driver.quit()
 
-
-    def get_to_course_page(self, course_number:str) -> None:
-        self.driver.get("https://students.technion.ac.il/local/technionsearch/course/" + course_number)
-
-
     def get_spans_xpath(self) -> tuple[list,str]:
         SPANS_XPATH = "/html/body/div[2]/div[3]/div/div/section/div/div/div[3]/div/div[1]/div/span"
         groups = self.driver.find_elements(By.XPATH, SPANS_XPATH)
@@ -222,9 +231,8 @@ class Helper:
             groups = self.driver.find_elements(By.XPATH, SPANS_XPATH)
         return groups, SPANS_XPATH
     
-
     def is_group_available(self, course_number:str, group_number:str) -> bool:
-        self.get_to_course_page(course_number)
+        self.driver.get("https://students.technion.ac.il/local/technionsearch/course/" + course_number)
         groups, SPANS_XPATH = self.get_spans_xpath()
         result = False
         for index in range(len(groups)):
@@ -232,50 +240,50 @@ class Helper:
                 result = True
         return result
 
-
     def checkout_cart(self) -> None:
-        self.driver.get("https://students.technion.ac.il/local/tregister/cart")
+        required_url = "https://students.technion.ac.il/local/tregister/cart"
+        if self.driver.current_url != required_url:
+            self.driver.get(required_url)
         self.action.double_click(WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.ID, "process_cart_item_request")))).perform()
         time.sleep(self.REGISTRATION_TIMEOUT)
 
-
     def add_to_cart(self, course_number:str, group_number:str) -> None:
-        self.driver.get("https://students.technion.ac.il/local/tregister/cart")
+        required_url = "https://students.technion.ac.il/local/tregister/cart"
+        if self.driver.current_url != required_url:
+            self.driver.get(required_url)
         WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_element_located((By.ID, "id_course_id"))).send_keys(course_number)
         WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_element_located((By.ID, "id_group_id"))).send_keys(group_number)
         WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.ID, "id_submitbutton"))).click()
 
+    def remove_course(self, course:str) -> None:
+        required_url = "https://students.technion.ac.il/local/tregister/cart"
+        if self.driver.current_url != required_url:
+            self.driver.get(required_url)
+        COURSES_XPATH_PREFIX = "/html/body/div[2]/div[3]/div/div/section/div/ul[2]/li"
+        COURSES_XPATH_SUFFIX = "/div/div/div[4]/div/a"
+        existing_courses = self.driver.find_elements(By.XPATH, COURSES_XPATH_PREFIX)
+        for index in range(len(existing_courses)):
+            elem = self.driver.find_element(By.XPATH, COURSES_XPATH_PREFIX + "[" + str(index+1) + "]" + COURSES_XPATH_SUFFIX)
+            if elem.get_attribute("data-course_id") == course.split("-")[0] and elem.get_attribute("data-group_id") == course.split("-")[1]:
+                self.action.double_click(WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.XPATH, COURSES_XPATH_PREFIX + "[" + str(index+1) + "]" + COURSES_XPATH_SUFFIX)))).perform()
 
-    # release version
-    def register(self, single_course_registration:bool = True) -> None:
+    def register(self, operation_mode:str, course_for_removal:str) -> None:
         for course in self.course_list:
-            course_elements = course.split("-")
-            if self.is_group_available(course_elements[0], course_elements[1]):
-                self.add_to_cart(course_elements[0], course_elements[1])
-                self.checkout_cart()
-                if single_course_registration:
-                    self.enable = False
-                    break
-                else:
-                    self.course_list.remove(course)
-                    break
-
-
-    # # version with printing instead of checking out
-    # def register(self, single_course_registration:bool = True) -> None:
-    #     for course in self.course_list:
-    #         course_elements = course.split("-")
-    #         if self.is_group_available(course_elements[0], course_elements[1]):
-    #             self.add_to_cart(course_elements[0], course_elements[1])
-    #             print("registered: " + course)
-    #             if single_course_registration:
-    #                 self.enable = False
-    #             else:
-    #                 self.course_list.remove(course)
-    #                 break
-    #         else:
-    #             print("no room at: " + course)
-
+            if len(self.course_list) > 0:
+                course_elements = course.split("-")
+                if self.is_group_available(course_elements[0], course_elements[1]):
+                    if operation_mode == "replace_course":
+                        self.remove_course(course_for_removal)
+                    self.add_to_cart(course_elements[0], course_elements[1])
+                    self.checkout_cart()
+                    if operation_mode == "add_single_course" or operation_mode == "replace_course":
+                        self.enable = False
+                        break
+                    elif operation_mode == "add_multiple_courses":
+                        self.course_list.remove(course)
+                        break
+            else:
+                self.enable = False
 
 
 #------------main------------
