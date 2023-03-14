@@ -7,19 +7,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 import tkinter as tk
-import tkinter.font
 from tkinter import messagebox
 
 class HelperGui:
     def __init__(self):
 
         self.root = tk.Tk()
-        self.root.geometry("535x510")
-        self.root.minsize(535, 510)
+        self.root.geometry("535x475")
+        self.root.minsize(535, 475)
         self.root.title("Registration Helper")
-        self.small_font = tk.font.Font( family = "Calibri", size = 12)
-        self.big_font = tk.font.Font( family = "Calibri", size = 16)
-        self.root.option_add( "*font", "Calibri 14" )   #default font
 
         self.helper = None
         self.driver = None
@@ -30,82 +26,77 @@ class HelperGui:
 
         self.login_frame = tk.LabelFrame(self.root, padx=5, pady=5)
         self.login_frame.pack(pady=5, padx=10, fill="x")
-        self.email_label = tk.Label(self.login_frame, text = "Email:")
+        self.email_label = tk.Label(self.login_frame, text = "Email:", font = ("Calibri", 14))
         self.email_label.grid(row=0, column=0, sticky="w")
-        self.password_label = tk.Label(self.login_frame, text = "Password:")
+        self.password_label = tk.Label(self.login_frame, text = "Password:", font = ("Calibri", 14))
         self.password_label.grid(row=1, column=0, sticky="w", pady=10)
-        self.login_button = tk.Button(self.login_frame, text = "Login", bd = 3, command = self.login_click)
+        self.login_button = tk.Button(self.login_frame, text = "Login", bd = 3, font = ("Calibri", 14), command = self.login_click)
         self.login_button.grid(row=1, column=3, sticky="w")
-        self.login_clear_button = tk.Button(self.login_frame, text = "Clear", bd = 3, command = self.login_clear_click)
+        self.login_clear_button = tk.Button(self.login_frame, text = "Clear", bd = 3, font = ("Calibri", 14), command = self.login_clear_click)
         self.login_clear_button.grid(row=1, column=2, sticky="w")
-        self.user_name_entry = tk.Entry(self.login_frame, width = 40)
+        self.user_name_entry = tk.Entry(self.login_frame, width = 40, font = ("Calibri", 14))
         self.user_name_entry.grid(row=0, column=1, sticky="w", columnspan=3)
         self.user_name_entry.focus()
-        self.password_entry = tk.Entry(self.login_frame, width = 27, show = "*")
+        self.password_entry = tk.Entry(self.login_frame, width = 27, show = "*", font = ("Calibri", 14))
         self.password_entry.grid(row=1, column=1, sticky="w")
 
         self.operation_mode_frame = tk.LabelFrame(self.root, padx=5, pady=5)
         self.operation_mode_frame.pack(pady=5, padx=10, fill="x")
-        self.operation_mode_label = tk.Label(self.operation_mode_frame, text = "Operation mode:", font = self.big_font)
+        self.operation_mode_label = tk.Label(self.operation_mode_frame, text = "Operation mode:", font = ("Calibri", 16))
         self.operation_mode_label.grid(row=0, column=0, sticky="w")
-        self.add_course_radio = tk.Radiobutton(self.operation_mode_frame, text = "Add single course", variable = self.radio_variable, value = "add_single_course")
+        self.add_course_radio = tk.Radiobutton(self.operation_mode_frame, text = "Add single course", font = ("Calibri", 14), variable = self.radio_variable, value = "add_single_course")
         self.add_course_radio.grid(row=1, column=0, sticky="w")
         self.add_course_radio.select()
-        self.add_courses_radio = tk.Radiobutton(self.operation_mode_frame, text = "Add multiple courses", variable = self.radio_variable, value = "add_multiple_courses")
+        self.add_courses_radio = tk.Radiobutton(self.operation_mode_frame, text = "Add multiple courses", font = ("Calibri", 14), variable = self.radio_variable, value = "add_multiple_courses")
         self.add_courses_radio.grid(row=2, column=0, sticky="w")
-        self.replace_course_radio = tk.Radiobutton(self.operation_mode_frame, text = "Replace course:", variable = self.radio_variable, value = "replace_course")
+        self.replace_course_radio = tk.Radiobutton(self.operation_mode_frame, text = "Replace course:", font = ("Calibri", 14), variable = self.radio_variable, value = "replace_course")
         self.replace_course_radio.grid(row=3, column=0, sticky="w")
-        self.replace_course_entry = tk.Entry(self.operation_mode_frame, width = 15, fg = "grey", font = self.small_font)
+        self.replace_course_entry = tk.Entry(self.operation_mode_frame, width = 15, fg = "grey", font = ("Calibri", 12))
         self.replace_course_entry.insert(0, '"234124-19"')
         self.replace_course_entry.grid(row=3, column=1, sticky="w")
-        self.replacement_enter_button = tk.Button(self.operation_mode_frame, text = "Enter", bd = 3, font = self.small_font, command = self.replacement_enter_click)
+        self.replacement_enter_button = tk.Button(self.operation_mode_frame, text = "Enter", bd = 3, font = ("Calibri", 12), command = self.replacement_enter_click)
         self.replacement_enter_button.grid(row=3, column=3, sticky="w", padx=5)
-        self.replacement_clear_button = tk.Button(self.operation_mode_frame, text = "Clear", bd = 3, font = self.small_font, command = self.replacement_clear_click)
+        self.replacement_clear_button = tk.Button(self.operation_mode_frame, text = "Clear", bd = 3, font = ("Calibri", 12), command = self.replacement_clear_click)
         self.replacement_clear_button.grid(row=3, column=2, sticky="w", padx=5)
 
-        self.wanted_courses_frame = tk.LabelFrame(self.root, padx=5, pady=5, )
+        self.wanted_courses_frame = tk.LabelFrame(self.root, padx=5, pady=5)
         self.wanted_courses_frame.pack(pady=5, padx=10, fill="both", expand="true")
-        self.wanted_courses_frame_l = tk.LabelFrame(self.wanted_courses_frame, padx=5, pady=5)
-        self.wanted_courses_frame_l.pack(side="left", fill="y")
-        self.scrollbar = tk.Scrollbar(self.wanted_courses_frame)
-        self.scrollbar.pack(side="right", fill="y")
-        self.enter_courses_label = tk.Label(self.wanted_courses_frame_l, text = "Enter wanted courses -", font = self.big_font)
-        self.enter_courses_label.grid(row=0, column=0, sticky="w")
-        self.courses_list = [tk.Entry(self.wanted_courses_frame_l, width = 35, fg = "grey", font = self.small_font)]
-        self.courses_list[0].insert(0, '"234124-13, 394804-18, 114804-12, ..."')
-        self.courses_list[0].grid(row=1, column=0, pady=3)
-        self.enter_courses_button = tk.Button(self.wanted_courses_frame_l, text = "Enter courses", bd = 3, font = self.small_font, command = self.enter_courses_click)
-        self.enter_courses_button.grid(row=0, column=2, padx=5, columnspan=2)
-        self.courses_add_button = tk.Button(self.wanted_courses_frame_l, text = "add", bd = 3, font = self.small_font, command = self.courses_add_click)
-        self.courses_add_button.grid(row=1,column=1, padx=5)
-        self.courses_remove_button = tk.Button(self.wanted_courses_frame_l, text = "remove", bd = 3, font = self.small_font, command = self.courses_remove_click)
-        self.selected_courses_frame = tk.LabelFrame(self.wanted_courses_frame_l,text = "Selected courses:", font = self.small_font, padx=5, pady=5)
-        self.selected_courses_frame.grid(row=2, column=0, sticky="w")
-        self.entered_courses_dynamic_label = tk.Label(self.selected_courses_frame, text = "None",width=30 , anchor="w", fg = "red", font = self.small_font)
-        self.entered_courses_dynamic_label.grid(row=0, column=0, sticky="w")
+        self.enter_courses_label = tk.Label(self.wanted_courses_frame, text = "Enter wanted courses -", font = ("Calibri", 16))
+        self.enter_courses_label.grid(row=0, column=0, sticky="w", columnspan=2)
+        self.courses_entry = tk.Entry(self.wanted_courses_frame, width = 45, fg = "grey", font = ("Calibri", 12))
+        self.courses_entry.insert(0, '"234124-13, 394804-18, 114804-12, ..."')
+        self.courses_entry.grid(row=1, column=0, columnspan=2)
+        self.enter_courses_button = tk.Button(self.wanted_courses_frame, text = "Enter courses", bd = 3, font = ("Calibri", 12), command = self.enter_courses_click)
+        self.enter_courses_button.grid(row=0, column=4, padx=5)
+        self.courses_clear_button = tk.Button(self.wanted_courses_frame, text = "Clear", bd = 3, font = ("Calibri", 12), command = self.courses_clear_click)
+        self.courses_clear_button.grid(row=1,column=4, padx=5)
+        self.entered_courses_label = tk.Label(self.wanted_courses_frame, text = "Selected courses:",  font = ("Calibri", 12))
+        self.entered_courses_label.grid(row=2, column=0)
+        self.entered_courses_dynamic_label = tk.Label(self.wanted_courses_frame, text = "None",width=30 , anchor="w", fg = "red", font = ("Calibri", 12))
+        self.entered_courses_dynamic_label.grid(row=2, column=1, sticky="w")
 
         self.start_frame = tk.LabelFrame(self.root, padx=5, pady=5)
         self.start_frame.pack(pady=5, padx=10, fill="x")
-        self.status_label = tk.Label(self.start_frame, text = "Status:")
+        self.status_label = tk.Label(self.start_frame, text = "Status:", font = ("Calibri", 14))
         self.status_label.grid(row=1, column=0, sticky="w")
-        self.status_dynamic_label = tk.Label(self.start_frame, text = "Standby", fg = "red")
+        self.status_dynamic_label = tk.Label(self.start_frame, text = "Standby", fg = "red", font = ("Calibri", 14))
         self.status_dynamic_label.grid(row=1, column=1, sticky="w",)
-        self.operating_frequency_label = tk.Label(self.start_frame, text = "Operating frequency:")
+        self.operating_frequency_label = tk.Label(self.start_frame, text = "Operating frequency:", font = ("Calibri", 14))
         self.operating_frequency_label.grid(row=0, column=0, sticky="w", columnspan=2)
-        self.frequency_entry = tk.Entry(self.start_frame, width = 3,font = self.small_font)
+        self.frequency_entry = tk.Entry(self.start_frame, width = 3,font = ("Calibri", 12))
         self.frequency_entry.grid(row=0, column=2, sticky="w")
         self.frequency_entry.insert(0, self.DEFAULT_FREQUENCY)
-        self.operating_frequency_seconds_label = tk.Label(self.start_frame, text = "seconds.")
+        self.operating_frequency_seconds_label = tk.Label(self.start_frame, text = "seconds.", font = ("Calibri", 14))
         self.operating_frequency_seconds_label.grid(row=0, column=3, sticky="w")
-        self.start_button = tk.Button(self.start_frame, text = "Start", fg = "green", width = 8, bd = 5, font = self.big_font, command = self.start_click)
+        self.start_button = tk.Button(self.start_frame, text = "Start", fg = "green", width = 8, bd = 5, font = ("Calibri", 16), command = self.start_click)
         self.start_button.grid(row=0, column=5, sticky="w", rowspan=2, padx=5)
-        self.stop_button = tk.Button(self.start_frame, text = "Stop", fg = "red", width = 8, bd = 5, font = self.big_font, command = self.stop_click)
+        self.stop_button = tk.Button(self.start_frame, text = "Stop", fg = "red", width = 8, bd = 5, font = ("Calibri", 16), command = self.stop_click)
         self.stop_button.grid(row=0, column=4, sticky="w", rowspan=2, padx=5)
 
-        self.replacement_course_dynamic_label = tk.Label(self.root, fg = "green", font = self.small_font)
+        self.replacement_course_dynamic_label = tk.Label(self.root, fg = "green", font = ("Calibri", 12))
 
-        self.courses_list[0].bind("<FocusIn>", self.handle_courses_entry_focus_in)    ##TODO
-        self.courses_list[0].bind("<FocusOut>", self.handle_courses_entry_focus_out)
+        self.courses_entry.bind("<FocusIn>", self.handle_courses_entry_focus_in)
+        self.courses_entry.bind("<FocusOut>", self.handle_courses_entry_focus_out)
         self.replace_course_entry.bind("<FocusIn>", self.handle_replace_course_entry_focus_in)
         self.replace_course_entry.bind("<FocusOut>", self.handle_replace_course_entry_focus_out)
         self.root.after(200, self.register_handler)
@@ -126,9 +117,9 @@ class HelperGui:
         self.password_entry.delete(0, tk.END)
 
     def enter_courses_click(self):
-        if self.courses_list[0]["fg"] != "grey":
+        if self.courses_entry["fg"] != "grey":
             if self.helper is not None:
-                self.helper.course_list = self.courses_list[0].get().split(", ") ##TODO
+                self.helper.course_list = self.courses_entry.get().split(", ")
                 if self.helper.course_list == [""]:
                     self.entered_courses_dynamic_label["fg"] = "red"
                     self.entered_courses_dynamic_label["text"] = "None"
@@ -138,25 +129,9 @@ class HelperGui:
             else:
                 messagebox.showinfo(title = "Error", message = "Login first")
 
-    def courses_add_click(self):
-        self.courses_list.append(tk.Entry(self.wanted_courses_frame_l, width = 35, fg = "grey", font = self.small_font))
-        self.courses_list[-1].insert(0, '"234124-13, 394804-18, 114804-12, ..."')
-        index = len(self.courses_list)
-        self.courses_list[-1].grid(row= index, pady= 3)
-        self.courses_add_button.grid(row= index,column=1 , sticky="w")
-        self.courses_remove_button.grid(row= index, column= 2, sticky="w")
-        self.selected_courses_frame.grid(row= index+1)
-
-    def courses_remove_click(self):
-        self.courses_list[-1].grid_forget()
-        self.courses_list.pop()
-        index = len(self.courses_list)
-        self.courses_add_button.grid(row= index)
-        self.courses_remove_button.grid(row= index)
-        self.selected_courses_frame.grid(row= index+1)
-
-
-
+    def courses_clear_click(self):
+        if self.courses_entry["fg"] != "grey":
+            self.courses_entry.delete(0, tk.END)
 
     def register_handler(self):
         if self.helper is not None:
@@ -203,16 +178,16 @@ class HelperGui:
         self.replacement_course = ""
         self.replacement_course_dynamic_label.place_forget()
 
-    def handle_courses_entry_focus_in(self, event = None):  ##TODO
-        if self.courses_list[0].get() == '"234124-13, 394804-18, 114804-12, ..."':
-            self.courses_list[0].delete(0, tk.END)
-            self.courses_list[0]["fg"] = "black"
+    def handle_courses_entry_focus_in(self, event = None):
+        if self.courses_entry.get() == '"234124-13, 394804-18, 114804-12, ..."':
+            self.courses_entry.delete(0, tk.END)
+            self.courses_entry["fg"] = "black"
 
-    def handle_courses_entry_focus_out(self, event = None): ##TODO
-        if self.courses_list[0].get() == "":
-            self.courses_list[0].delete(0, tk.END)
-            self.courses_list[0]["fg"] = "grey"
-            self.courses_list[0].insert(0, '"234124-13, 394804-18, 114804-12, ..."')
+    def handle_courses_entry_focus_out(self, event = None):
+        if self.courses_entry.get() == "":
+            self.courses_entry.delete(0, tk.END)
+            self.courses_entry["fg"] = "grey"
+            self.courses_entry.insert(0, '"234124-13, 394804-18, 114804-12, ..."')
 
     def handle_replace_course_entry_focus_in(self, event = None):
         if self.replace_course_entry.get() == '"234124-19"':
