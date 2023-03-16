@@ -14,12 +14,13 @@ class HelperGui:
     def __init__(self):
 
         self.root = tk.Tk()
-        self.root.geometry("535x545")
-        self.root.minsize(535, 545)
+        self.root.geometry("530x550")
+        self.root.minsize(530, 550)
         self.root.title("Registration Helper")
         self.small_font = tk.font.Font( family = "Calibri", size = 12)
         self.big_font = tk.font.Font( family = "Calibri", size = 16)
         self.root.option_add( "*font", "Calibri 14" )   #default font
+        self.instructions_text = "Each course in new line.\nUse > to indicate replace hierarchy. Example:\n\n114804-12>333123-12\n234124-13\n394804-18>123456-10>123456-20\n...\nIn the above example 333123-12 will be replaced by 114804-12\nAnd 123456-20 will be replaced by 123456-10 and both will be replaced by 394804-18"
 
         self.helper = None
         self.driver = None
@@ -44,38 +45,19 @@ class HelperGui:
         self.password_entry = tk.Entry(self.login_frame, width = 27, show = "*")
         self.password_entry.grid(row=1, column=1, sticky="w")
 
-        self.operation_mode_frame = tk.LabelFrame(self.root, padx=5, pady=5)
-        self.operation_mode_frame.pack(pady=3, padx=10, fill="x")
-        self.operation_mode_label = tk.Label(self.operation_mode_frame, text = "Operation mode:", font = self.big_font)
-        self.operation_mode_label.grid(row=0, column=0, sticky="w")
-        self.add_course_radio = tk.Radiobutton(self.operation_mode_frame, text = "Add single course", variable = self.radio_variable, value = "add_single_course")
-        self.add_course_radio.grid(row=1, column=0, sticky="w")
-        self.add_course_radio.select()
-        self.add_courses_radio = tk.Radiobutton(self.operation_mode_frame, text = "Add multiple courses", variable = self.radio_variable, value = "add_multiple_courses")
-        self.add_courses_radio.grid(row=2, column=0, sticky="w")
-        self.replace_course_radio = tk.Radiobutton(self.operation_mode_frame, text = "Replace course:", variable = self.radio_variable, value = "replace_course")
-        self.replace_course_radio.grid(row=3, column=0, sticky="w")
-        self.replace_course_entry = tk.Entry(self.operation_mode_frame, width = 15, fg = "grey", font = self.small_font)
-        self.replace_course_entry.insert(0, '"234124-19"')
-        self.replace_course_entry.grid(row=3, column=1, sticky="w")
-        self.replacement_enter_button = tk.Button(self.operation_mode_frame, text = "Enter", bd = 3, font = self.small_font, command = self.replacement_enter_click)
-        self.replacement_enter_button.grid(row=3, column=3, sticky="w", padx=5)
-        self.replacement_clear_button = tk.Button(self.operation_mode_frame, text = "Clear", bd = 3, font = self.small_font, command = self.replacement_clear_click)
-        self.replacement_clear_button.grid(row=3, column=2, sticky="w", padx=5)
-
         self.wanted_courses_frame = tk.LabelFrame(self.root, padx=5, pady=5)
-        self.wanted_courses_frame.pack(pady=3, padx=10, fill="both", expand="true")
+        self.wanted_courses_frame.pack(pady=3, padx=10, fill= "both", expand="true")
+        self.selected_courses_frame = tk.LabelFrame(self.wanted_courses_frame, text = "Selected courses:", font = self.small_font, padx=5, pady=5)
+        self.selected_courses_frame.pack(side= "bottom", fill="both", expand= "true")
+        self.courses_text = tk.Text(self.wanted_courses_frame, height=4, fg = "grey", font = self.small_font)
+        self.courses_text.insert(0.0, self.instructions_text)
+        self.courses_text.pack(fill="both", expand= "true", pady= 5)
+        self.entered_courses_dynamic_label = tk.Label(self.selected_courses_frame, text = "None", anchor="nw", fg = "red", font = self.small_font)
+        self.entered_courses_dynamic_label.pack(fill= "both", expand="true")
         self.enter_courses_label = tk.Label(self.wanted_courses_frame, text = "Enter wanted courses -", font = self.big_font)
-        self.enter_courses_label.grid(row=0, column=0, sticky="w", columnspan= 2)
-        self.courses_text = tk.Text(self.wanted_courses_frame, height=5, width= 45, fg = "grey", font = self.small_font)
-        self.courses_text.insert(0.0, '"234124-13, 394804-18, 114804-12, ..."')
-        self.courses_text.grid(row=1, column=0, sticky="w", columnspan= 2)
+        self.enter_courses_label.pack(side= "left", anchor="n")
         self.enter_courses_button = tk.Button(self.wanted_courses_frame, text = "Enter courses", bd = 3, font = self.small_font, command = self.enter_courses_click)
-        self.enter_courses_button.grid(row=0, column=2, padx=5, sticky="w")
-        self.selected_courses_frame = tk.LabelFrame(self.wanted_courses_frame,text = "Selected courses:", font = self.small_font, padx=5, pady=5)
-        self.selected_courses_frame.grid(row=2, column=0, sticky="w")
-        self.entered_courses_dynamic_label = tk.Label(self.selected_courses_frame, text = "None",width=30 , anchor="w", fg = "red", font = self.small_font)
-        self.entered_courses_dynamic_label.grid(row=0, column=0, sticky="w")
+        self.enter_courses_button.pack(side= "left",anchor="n", padx= 50)
 
         self.start_frame = tk.LabelFrame(self.root, padx=5, pady=5)
         self.start_frame.pack(pady=3, padx=10, fill="x")
@@ -97,11 +79,9 @@ class HelperGui:
 
         self.replacement_course_dynamic_label = tk.Label(self.root, fg = "green", font = self.small_font)
 
+        self.entered_courses_dynamic_label.bind('<Configure>', lambda e: self.entered_courses_dynamic_label.config(wraplength= self.entered_courses_dynamic_label.winfo_width()))
         self.courses_text.bind("<FocusIn>", self.handle_courses_text_focus_in)
         self.courses_text.bind("<FocusOut>", self.handle_courses_text_focus_out)
-        self.replace_course_entry.bind("<FocusIn>", self.handle_replace_course_entry_focus_in)
-        self.replace_course_entry.bind("<FocusOut>", self.handle_replace_course_entry_focus_out)
-        self.root.after(200, self.register_handler)
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.mainloop()
         
@@ -121,8 +101,8 @@ class HelperGui:
     def enter_courses_click(self):
         if self.courses_text["fg"] != "grey":
             if self.helper is not None:
-                self.helper.course_list = self.courses_text.get().split(", ")
-                if self.helper.course_list == [""]:
+                self.helper.course_list = [course for course in self.courses_text.get(0.0, "end-1c").split("\n") if not course.isspace() and course != ""]
+                if self.helper.course_list == []:
                     self.entered_courses_dynamic_label["fg"] = "red"
                     self.entered_courses_dynamic_label["text"] = "None"
                 else:
@@ -131,18 +111,14 @@ class HelperGui:
             else:
                 messagebox.showinfo(title = "Error", message = "Login first")
 
-    def courses_clear_click(self):
-        if self.courses_text["fg"] != "grey":
-            self.courses_text.delete(0.0, tk.END)
-
-    def register_handler(self):
+    def register_loop(self):
         if self.helper is not None:
             if self.helper.enable:
-                self.helper.register(self.radio_variable.get(), self.replace_course_entry.get(), self)
+                self.helper.register()
             else:
                 self.status_dynamic_label["text"] = "Standby" #
                 self.status_dynamic_label["fg"] = "red"       # when all registrations are completed
-        self.root.after(int(self.frequency)*1000, self.register_handler)
+        self.root.after(int(self.frequency)*1000, self.register_loop)    #loop forever
 
     def start_click(self):
         if self.helper is not None:
@@ -152,6 +128,7 @@ class HelperGui:
                 self.frequency_entry.insert(0, self.DEFAULT_FREQUENCY)
             self.frequency = int(self.frequency_entry.get())
             self.helper.enable = True
+            self.root.after(100, self.register_loop)
         else:
             messagebox.showinfo(title = "Error", message = "Driver is not running")
 
@@ -168,46 +145,22 @@ class HelperGui:
             self.helper.driver.quit()
         self.root.destroy()
 
-    def replacement_enter_click(self):
-        if self.replace_course_entry["fg"] != "grey":
-            self.replacement_course = self.replace_course_entry.get()
-            if self.replacement_course != "":
-                self.replacement_course_dynamic_label["text"] = "Set: " + self.replacement_course
-                self.replacement_course_dynamic_label.place(x = 406, y = 217)
-
-    def replacement_clear_click(self):
-        self.replace_course_entry.delete(0, tk.END)
-        self.replacement_course = ""
-        self.replacement_course_dynamic_label.place_forget()
-
     def handle_courses_text_focus_in(self, event = None):
-        if self.courses_text.get(0.0, tk.END) == '"234124-13, 394804-18, 114804-12, ..."':
-            self.courses_text.delete(0.0, tk.END)
+        if self.courses_text["fg"] == "grey":
+            self.courses_text.delete(0.0, "end-1c")
             self.courses_text["fg"] = "black"
 
     def handle_courses_text_focus_out(self, event = None):
-        if self.courses_text.get() == "":
-            self.courses_text.delete(0.0, tk.END)
+        if self.courses_text.get(0.0,"end-1c") == "":
+            self.courses_text.delete(0.0, "end-1c")
             self.courses_text["fg"] = "grey"
-            self.courses_text.insert(0.0, '"234124-13, 394804-18, 114804-12, ..."')
-
-    def handle_replace_course_entry_focus_in(self, event = None):
-        if self.replace_course_entry.get() == '"234124-19"':
-            self.replace_course_entry.delete(0, tk.END)
-            self.replace_course_entry["fg"] = "black"
-
-    def handle_replace_course_entry_focus_out(self, event = None):
-        if self.replace_course_entry.get() == "":
-            self.replace_course_entry.delete(0, tk.END)
-            self.replace_course_entry["fg"] = "grey"
-            self.replace_course_entry.insert(0, '"234124-19"')
-
+            self.courses_text.insert(0.0, self.instructions_text)
 
 class Helper:
     def __init__(self, email:str, password:str):
         self.driver = None
         self.enable = False
-        self.course_list = [""]
+        self.course_list = []
         self.PATH = "C:\Program Files (x86)\chromedriver.exe"
         self.TIMEOUT = 10
         self.REGISTRATION_TIMEOUT = 20
@@ -277,20 +230,23 @@ class Helper:
                 self.action.double_click(WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.XPATH, COURSES_XPATH_PREFIX + "[" + str(index+1) + "]" + COURSES_XPATH_SUFFIX)))).perform()
                 time.sleep(5)
 
-    def register(self, operation_mode:str, course_for_removal:str, gui) -> None:
+    def register(self) -> None:
         for course in self.course_list:
-            if len(self.course_list) > 0:
-                course_elements = course.split("-")
-                if self.is_group_available(course_elements[0], course_elements[1]):
-                    if operation_mode == "replace_course":
-                        self.remove_course(course_for_removal)
-                    self.add_to_cart(course_elements[0], course_elements[1])
+            if len(course) > 0:
+                course_to_register = course.split(">")[0]
+                course_to_register_elements = course_to_register.split("-")
+                if self.is_group_available(course_to_register_elements[0], course_to_register_elements[1]):
+                    if len(course.split(">"))>1:
+                        course_to_replace = course.split(">")[1]
+                        self.remove_course(course_to_replace)
+                    self.add_to_cart(course_to_register_elements[0], course_to_register_elements[1])
                     self.checkout_cart()
-                    self.course_list.remove(course) ## shouldn't we remove the "," also?
+                    self.course_list.remove(course) 
+                    if len(self.course_list) == 0:
+                        self.enable = False #all courses done
+                        print("done")
                     ##gui.entered_courses_dynamic_label["fg"]
                     break
-            else:
-                self.enable = False
 
 
 #------------main------------
