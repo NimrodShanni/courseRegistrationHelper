@@ -114,7 +114,7 @@ class HelperGui:
     def register_loop(self):
         if self.helper is not None:
             if self.helper.enable:
-                self.helper.register()
+                self.helper.register_all()
             else:
                 self.status_dynamic_label["text"] = "Standby" #
                 self.status_dynamic_label["fg"] = "red"       # when all registrations are completed
@@ -230,23 +230,37 @@ class Helper:
                 self.action.double_click(WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.XPATH, COURSES_XPATH_PREFIX + "[" + str(index+1) + "]" + COURSES_XPATH_SUFFIX)))).perform()
                 time.sleep(5)
 
-    def register(self) -> None:
-        for course in self.course_list:
-            if len(course) > 0:
-                course_to_register = course.split(">")[0]
-                course_to_register_elements = course_to_register.split("-")
-                if self.is_group_available(course_to_register_elements[0], course_to_register_elements[1]):
-                    if len(course.split(">"))>1:
-                        course_to_replace = course.split(">")[1]
-                        self.remove_course(course_to_replace)
-                    self.add_to_cart(course_to_register_elements[0], course_to_register_elements[1])
-                    self.checkout_cart()
-                    self.course_list.remove(course) 
-                    if len(self.course_list) == 0:
-                        self.enable = False #all courses done
-                        print("done")
+    def register_all(self) -> None:
+        for line_i, line in enumerate(self.course_list):
+            print("line "+line) #DEBUG
+            hierarchy = line.split(">")
+            for hier_i, course_and_group in enumerate(hierarchy):
+                print("hierarchy "+course_and_group)
+                (course, group) = course_and_group.split("-")
+                # check if already registered - if true break - put in remove and register
+                #if self.is_group_available(course, group):
+                if messagebox.askyesno("available?",course_and_group):  #DEBUG
+                    if len(hierarchy[hier_i:])>1: #there is more hierarchy remove first
+                        course_to_remove = hierarchy[-1]
+                        if hier_i == 0: #it is the highest priority
+                            del self.course_list[line_i]
+                        else:
+                            self.course_list[line_i] = self.course_list[line_i][:self.course_list[line_i].find(course_and_group)-1]    #remove all the lower priority courses  
+                        #self.remove_course(course_to_remove)
+                        print("remove "+course_to_remove)    #DEBUG
+                    else:
+                        del self.course_list[line_i]
+                    #self.register_course(course, group)
+                    print("register "+course_and_group)    #DEBUG
                     ##gui.entered_courses_dynamic_label["fg"]
                     break
+        if len(self.course_list) == 0:  #all courses done
+            self.enable = False
+            print("done")   #DEBUG
+    
+    def register_course(self, course:str, group:str) -> None:
+        self.add_to_cart(course, group)
+        self.checkout_cart()
 
 
 #------------main------------
