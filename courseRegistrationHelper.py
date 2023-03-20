@@ -87,7 +87,7 @@ class HelperGui:
 
         self.courses_text.bind("<FocusIn>", self.handle_courses_text_focus_in)
         self.courses_text.bind("<FocusOut>", self.handle_courses_text_focus_out)
-        #self.root.protocol("WM_DELETE_WINDOW", self.on_closing) DEBUG
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.mainloop()
         
     def login_click(self):
@@ -106,7 +106,7 @@ class HelperGui:
     def enter_courses_click(self):
         if self.helper is not None:
             if self.courses_text["fg"] != "grey":
-                self.helper.course_list = [course for course in self.courses_text.get(0.0, "end-1c").split("\n") if not course.isspace() and course != ""]
+                self.helper.course_list= [course for course in self.courses_text.get(0.0, "end-1c").split("\n") if not course.isspace() and course != ""]
                 if self.helper.course_list == []:
                     self.pending_courses_text.config(state="normal")
                     self.pending_courses_text.delete("0.0", "end")
@@ -116,11 +116,20 @@ class HelperGui:
                     self.pending_courses_text.config(state="normal")
                     self.pending_courses_text.delete("0.0", "end")
                     self.pending_courses_text.insert("0.0", " | ".join(self.helper.course_list))
+                    self.pending_courses_check_if_courses_registered()
                     self.pending_courses_text.config(state="disabled")
                     self.pending_course_mark_sep(">", "sep2")
                     self.pending_course_mark_sep("|", "sep1")
         else:
             messagebox.showinfo(title = "Error", message = "Login first")
+
+    def pending_courses_check_if_courses_registered(self):
+        for line in self.helper.course_list:
+            hier =line.split(">")
+            if len(hier)>1:
+                if self.helper.check_if_registered(hier[-1]):
+                    self.pending_course_tag_add(hier[-1], "got")
+
 
     def pending_course_tag_add(self, text:str, tag:str):
         countVar = tk.StringVar()
@@ -133,6 +142,16 @@ class HelperGui:
         pos = self.pending_courses_text.search(text, "0.0", stopindex="end", count=countVar)
         if pos != "":
             self.pending_courses_text.tag_remove(tag, pos, "%s + %sc" % (pos, countVar.get()))
+
+    def pending_course_tag_search(self, text:str, tag:str):
+        countVar = tk.StringVar()
+        pos = self.pending_courses_text.search(text, "0.0", stopindex="end", count=countVar)
+        if pos != "":
+            if self.pending_courses_text.tag_nextrange(tag, pos, "%s + %sc" % (pos, countVar.get())) != ():
+                return True
+        return False
+        
+        
 
     def pending_course_mark_sep(self, text:str, tag:str):
         index = "0.0"
@@ -199,8 +218,8 @@ class Helper:
         self.TIMEOUT = 10
         self.REGISTRATION_TIMEOUT = 20
         self.IS_AVAILABLE = "text-success"
-        #self.login(email, password)
-        #self.action = ActionChains(self.driver)    #DEBUG
+        self.login(email, password)
+        self.action = ActionChains(self.driver)
 
     def login(self, email:str, password:str) -> None:
         self.driver = webdriver.Chrome(self.PATH)
@@ -264,15 +283,26 @@ class Helper:
                 self.action.double_click(WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.XPATH, COURSES_XPATH_PREFIX + "[" + str(index+1) + "]" + COURSES_XPATH_SUFFIX)))).perform()
                 time.sleep(5)
 
+    def check_if_registered(self, course:str) -> bool:
+        required_url = "https://students.technion.ac.il/local/tregister/cart"
+        if self.driver.current_url != required_url:
+            self.driver.get(required_url)
+        COURSES_XPATH_PREFIX = "/html/body/div[2]/div[3]/div/div/section/div/ul[2]/li"
+        COURSES_XPATH_SUFFIX = "/div/div/div[4]/div/a"
+        existing_courses = WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_all_elements_located((By.XPATH, COURSES_XPATH_PREFIX)))
+        for index in range(len(existing_courses)):
+            elem = self.driver.find_element(By.XPATH, COURSES_XPATH_PREFIX + "[" + str(index+1) + "]" + COURSES_XPATH_SUFFIX)
+            if elem.get_attribute("data-course_id") == course.split("-")[0] and elem.get_attribute("data-group_id") == course.split("-")[1]:
+                return True
+        return False
+
     def register_all(self, gui) -> None:
         temp = self.course_list[:]
         for line in temp:
             hierarchy = line.split(">")
             for hier_i, course_and_group in enumerate(hierarchy):
                 (course, group) = course_and_group.split("-")
-                # check if already registered - if true break - put in remove and register
-                #if self.is_group_available(course, group):
-                if messagebox.askyesno("available?",course_and_group):  #DEBUG
+                if not gui.pending_course_tag_search(course_and_group, "got") and self.is_group_available(course, group):
                     if hier_i == 0:
                         self.course_list.remove(line)
                     else:   #there is higher priority
@@ -281,11 +311,11 @@ class Helper:
 
                     if len(hierarchy[hier_i:])>1: #there is more hierarchy after - remove first
                         course_to_remove = hierarchy[-1]
-                        #self.remove_course(course_to_remove)
+                        self.remove_course(course_to_remove)
                         gui.pending_course_tag_remove(course_to_remove, "got")
                         gui.pending_course_tag_add(course_to_remove, "pending")
 
-                    #self.register_course(course, group)
+                    self.register_course(course, group) #register!
                     gui.pending_course_tag_add(course_and_group, "got")
                     break
         if len(self.course_list) == 0:  #all courses done
