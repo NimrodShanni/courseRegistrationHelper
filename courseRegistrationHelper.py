@@ -26,7 +26,7 @@ class HelperGui:
         self.driver = None
         self.radio_variable = tk.StringVar()
         self.replacement_course = ""
-        self.DEFAULT_FREQUENCY = 90
+        self.DEFAULT_FREQUENCY = 10
         self.frequency = 1
 
         self.login_frame = tk.LabelFrame(self.root, padx=5, pady=5)
@@ -47,13 +47,19 @@ class HelperGui:
 
         self.wanted_courses_frame = tk.LabelFrame(self.root, padx=5, pady=5)
         self.wanted_courses_frame.pack(pady=3, padx=10, fill= "both", expand="true")
-        self.selected_courses_frame = tk.LabelFrame(self.wanted_courses_frame, text = "Selected courses:", font = self.small_font, padx=5, pady=5)
-        self.selected_courses_frame.pack(side= "bottom", fill="both", expand= "true")
-        self.courses_text = tk.Text(self.wanted_courses_frame, height=4, fg = "grey", font = self.small_font)
+        self.pending_courses_frame = tk.LabelFrame(self.wanted_courses_frame, text = "Pending courses:", font = self.small_font, padx=5, pady=5)
+        self.pending_courses_frame.pack(side= "bottom", fill="both", expand= "true")
+        self.pending_courses_text = tk.Text(self.pending_courses_frame, height=1, fg = "red", font = self.small_font)
+        self.pending_courses_text.pack(fill="both", expand= "true", pady= 5)
+        self.pending_courses_text.tag_config("got", foreground="green")
+        self.pending_courses_text.tag_config("pending", foreground="red")
+        self.pending_courses_text.tag_config("sep1", foreground="blue")
+        self.pending_courses_text.tag_config("sep2", foreground="black")
+        self.pending_courses_text.insert("0.0", "None")
+        self.pending_courses_text.config(state="disabled")
+        self.courses_text = tk.Text(self.wanted_courses_frame, height=8, fg = "grey", font = self.small_font)
         self.courses_text.insert(0.0, self.instructions_text)
         self.courses_text.pack(fill="both", expand= "true", pady= 5)
-        self.entered_courses_dynamic_label = tk.Label(self.selected_courses_frame, text = "None", anchor="nw", fg = "red", font = self.small_font)
-        self.entered_courses_dynamic_label.pack(fill= "both", expand="true")
         self.enter_courses_label = tk.Label(self.wanted_courses_frame, text = "Enter wanted courses -", font = self.big_font)
         self.enter_courses_label.pack(side= "left", anchor="n")
         self.enter_courses_button = tk.Button(self.wanted_courses_frame, text = "Enter courses", bd = 3, font = self.small_font, command = self.enter_courses_click)
@@ -79,10 +85,9 @@ class HelperGui:
 
         self.replacement_course_dynamic_label = tk.Label(self.root, fg = "green", font = self.small_font)
 
-        self.entered_courses_dynamic_label.bind('<Configure>', lambda e: self.entered_courses_dynamic_label.config(wraplength= self.entered_courses_dynamic_label.winfo_width()))
         self.courses_text.bind("<FocusIn>", self.handle_courses_text_focus_in)
         self.courses_text.bind("<FocusOut>", self.handle_courses_text_focus_out)
-        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        #self.root.protocol("WM_DELETE_WINDOW", self.on_closing) DEBUG
         self.root.mainloop()
         
     def login_click(self):
@@ -99,22 +104,51 @@ class HelperGui:
         self.password_entry.delete(0, tk.END)
 
     def enter_courses_click(self):
-        if self.courses_text["fg"] != "grey":
-            if self.helper is not None:
+        if self.helper is not None:
+            if self.courses_text["fg"] != "grey":
                 self.helper.course_list = [course for course in self.courses_text.get(0.0, "end-1c").split("\n") if not course.isspace() and course != ""]
                 if self.helper.course_list == []:
-                    self.entered_courses_dynamic_label["fg"] = "red"
-                    self.entered_courses_dynamic_label["text"] = "None"
+                    self.pending_courses_text.config(state="normal")
+                    self.pending_courses_text.delete("0.0", "end")
+                    self.pending_courses_text.insert("0.0", "None")
+                    self.pending_courses_text.config(state="disabled")
                 else:
-                    self.entered_courses_dynamic_label["fg"] = "green"
-                    self.entered_courses_dynamic_label["text"] = ", ".join(self.helper.course_list)
-            else:
-                messagebox.showinfo(title = "Error", message = "Login first")
+                    self.pending_courses_text.config(state="normal")
+                    self.pending_courses_text.delete("0.0", "end")
+                    self.pending_courses_text.insert("0.0", " | ".join(self.helper.course_list))
+                    self.pending_courses_text.config(state="disabled")
+                    self.pending_course_mark_sep(">", "sep2")
+                    self.pending_course_mark_sep("|", "sep1")
+        else:
+            messagebox.showinfo(title = "Error", message = "Login first")
+
+    def pending_course_tag_add(self, text:str, tag:str):
+        countVar = tk.StringVar()
+        pos = self.pending_courses_text.search(text, "0.0", stopindex="end", count=countVar)
+        if pos != "":
+            self.pending_courses_text.tag_add(tag, pos, "%s + %sc" % (pos, countVar.get()))
+
+    def pending_course_tag_remove(self, text:str, tag:str):
+        countVar = tk.StringVar()
+        pos = self.pending_courses_text.search(text, "0.0", stopindex="end", count=countVar)
+        if pos != "":
+            self.pending_courses_text.tag_remove(tag, pos, "%s + %sc" % (pos, countVar.get()))
+
+    def pending_course_mark_sep(self, text:str, tag:str):
+        index = "0.0"
+        countVar = tk.StringVar()
+        while True:
+            index = self.pending_courses_text.search(text, index, stopindex="end", count=countVar)
+            if index == "":
+                break 
+            self.pending_courses_text.tag_add(tag, index, "%s + %sc" % (index, countVar.get()))
+            index = "%s + %sc" % (index, countVar.get())
+
 
     def register_loop(self):
         if self.helper is not None:
             if self.helper.enable:
-                self.helper.register_all()
+                self.helper.register_all(self)
             else:
                 self.status_dynamic_label["text"] = "Standby" #
                 self.status_dynamic_label["fg"] = "red"       # when all registrations are completed
@@ -165,8 +199,8 @@ class Helper:
         self.TIMEOUT = 10
         self.REGISTRATION_TIMEOUT = 20
         self.IS_AVAILABLE = "text-success"
-        self.login(email, password)
-        self.action = ActionChains(self.driver)
+        #self.login(email, password)
+        #self.action = ActionChains(self.driver)    #DEBUG
 
     def login(self, email:str, password:str) -> None:
         self.driver = webdriver.Chrome(self.PATH)
@@ -230,33 +264,32 @@ class Helper:
                 self.action.double_click(WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.XPATH, COURSES_XPATH_PREFIX + "[" + str(index+1) + "]" + COURSES_XPATH_SUFFIX)))).perform()
                 time.sleep(5)
 
-    def register_all(self) -> None:
-        for line_i, line in enumerate(self.course_list):
-            print("line "+line) #DEBUG
+    def register_all(self, gui) -> None:
+        temp = self.course_list[:]
+        for line in temp:
             hierarchy = line.split(">")
             for hier_i, course_and_group in enumerate(hierarchy):
-                print("hierarchy "+course_and_group)
                 (course, group) = course_and_group.split("-")
                 # check if already registered - if true break - put in remove and register
                 #if self.is_group_available(course, group):
                 if messagebox.askyesno("available?",course_and_group):  #DEBUG
-                    if len(hierarchy[hier_i:])>1: #there is more hierarchy remove first
+                    if hier_i == 0:
+                        self.course_list.remove(line)
+                    else:   #there is higher priority
+                        index = self.course_list.index(line)
+                        self.course_list[index] = self.course_list[index][:self.course_list[index].find(course_and_group)+len(course_and_group)]    #remove all the lower priority courses
+
+                    if len(hierarchy[hier_i:])>1: #there is more hierarchy after - remove first
                         course_to_remove = hierarchy[-1]
-                        if hier_i == 0: #it is the highest priority
-                            del self.course_list[line_i]
-                        else:
-                            self.course_list[line_i] = self.course_list[line_i][:self.course_list[line_i].find(course_and_group)-1]    #remove all the lower priority courses  
                         #self.remove_course(course_to_remove)
-                        print("remove "+course_to_remove)    #DEBUG
-                    else:
-                        del self.course_list[line_i]
+                        gui.pending_course_tag_remove(course_to_remove, "got")
+                        gui.pending_course_tag_add(course_to_remove, "pending")
+
                     #self.register_course(course, group)
-                    print("register "+course_and_group)    #DEBUG
-                    ##gui.entered_courses_dynamic_label["fg"]
+                    gui.pending_course_tag_add(course_and_group, "got")
                     break
         if len(self.course_list) == 0:  #all courses done
             self.enable = False
-            print("done")   #DEBUG
     
     def register_course(self, course:str, group:str) -> None:
         self.add_to_cart(course, group)
