@@ -9,43 +9,46 @@ import time
 import tkinter as tk
 import tkinter.font
 from tkinter import messagebox
+import random
 
 class HelperGui:
     def __init__(self):
 
         self.root = tk.Tk()
-        self.root.geometry("530x550")
-        self.root.minsize(530, 550)
+        self.root.geometry("540x620")
+        self.root.minsize(540, 620)
         self.root.title("Registration Helper")
         self.small_font = tk.font.Font( family = "Calibri", size = 12)
         self.big_font = tk.font.Font( family = "Calibri", size = 16)
         self.root.option_add( "*font", "Calibri 14" )   #default font
-        self.instructions_text = "Each course in new line.\nUse > to indicate replace hierarchy. Example:\n\n114804-12>333123-12\n234124-13\n394804-18>123456-10>123456-20\n...\nIn the above example 333123-12 will be replaced by 114804-12\nAnd 123456-20 will be replaced by 123456-10 and both will be replaced by 394804-18"
+        self.instructions_text = 'Enter each course in a new line.\nUse ">" to indicate course hierarchy. For example:\n\n114804-12>333123-12\n234124-13\n394804-18>123456-10>123456-20\n...\nIn the above example 333123-12 will be replaced by 114804-12\nAnd 123456-20 will be replaced by 123456-10 which in turn, will be replaced by 394804-18'
 
         self.helper = None
         self.driver = None
         self.radio_variable = tk.StringVar()
         self.replacement_course = ""
-        self.DEFAULT_FREQUENCY = 10
+        self.DEFAULT_FREQUENCY = 90
+        self.DEFAULT_RANDOM_OFFSET = 20
         self.frequency = 1
+        self.random_frequency_offset = self.DEFAULT_RANDOM_OFFSET
 
-        self.login_frame = tk.LabelFrame(self.root, padx=5, pady=5)
+        self.login_frame = tk.LabelFrame(self.root, text = "Login", font = self.small_font ,padx=5, pady=5)
         self.login_frame.pack(pady=3, padx=10, fill="x")
         self.email_label = tk.Label(self.login_frame, text = "Email:")
         self.email_label.grid(row=0, column=0, sticky="w")
         self.password_label = tk.Label(self.login_frame, text = "Password:")
         self.password_label.grid(row=1, column=0, sticky="w", pady=10)
         self.login_button = tk.Button(self.login_frame, text = "Login", bd = 3, command = self.login_click)
-        self.login_button.grid(row=1, column=3, sticky="w")
+        self.login_button.grid(row=1, column=3, sticky="e")
         self.login_clear_button = tk.Button(self.login_frame, text = "Clear", bd = 3, command = self.login_clear_click)
-        self.login_clear_button.grid(row=1, column=2, sticky="w")
+        self.login_clear_button.grid(row=1, column=2, sticky="e")
         self.user_name_entry = tk.Entry(self.login_frame, width = 40)
         self.user_name_entry.grid(row=0, column=1, sticky="w", columnspan=3)
         self.user_name_entry.focus()
         self.password_entry = tk.Entry(self.login_frame, width = 27, show = "*")
         self.password_entry.grid(row=1, column=1, sticky="w")
 
-        self.wanted_courses_frame = tk.LabelFrame(self.root, padx=5, pady=5)
+        self.wanted_courses_frame = tk.LabelFrame(self.root, text = "Enter wanted courses", font = self.small_font, padx=5, pady=5)
         self.wanted_courses_frame.pack(pady=3, padx=10, fill= "both", expand="true")
         self.pending_courses_frame = tk.LabelFrame(self.wanted_courses_frame, text = "Pending courses:", font = self.small_font, padx=5, pady=5)
         self.pending_courses_frame.pack(side= "bottom", fill="both", expand= "true")
@@ -60,17 +63,15 @@ class HelperGui:
         self.courses_text = tk.Text(self.wanted_courses_frame, height=8, fg = "grey", font = self.small_font)
         self.courses_text.insert(0.0, self.instructions_text)
         self.courses_text.pack(fill="both", expand= "true", pady= 5)
-        self.enter_courses_label = tk.Label(self.wanted_courses_frame, text = "Enter wanted courses -", font = self.big_font)
-        self.enter_courses_label.pack(side= "left", anchor="n")
         self.enter_courses_button = tk.Button(self.wanted_courses_frame, text = "Enter courses", bd = 3, font = self.small_font, command = self.enter_courses_click)
-        self.enter_courses_button.pack(side= "left",anchor="n", padx= 50)
+        self.enter_courses_button.pack(side= "left",anchor="n", pady = 5)
 
         self.start_frame = tk.LabelFrame(self.root, padx=5, pady=5)
         self.start_frame.pack(pady=3, padx=10, fill="x")
         self.status_label = tk.Label(self.start_frame, text = "Status:")
-        self.status_label.grid(row=1, column=0, sticky="w")
+        self.status_label.grid(row=2, column=0, sticky="w")
         self.status_dynamic_label = tk.Label(self.start_frame, text = "Standby", fg = "red")
-        self.status_dynamic_label.grid(row=1, column=1, sticky="w",)
+        self.status_dynamic_label.grid(row=2, column=1, sticky="w",)
         self.operating_frequency_label = tk.Label(self.start_frame, text = "Operating frequency:")
         self.operating_frequency_label.grid(row=0, column=0, sticky="w", columnspan=2)
         self.frequency_entry = tk.Entry(self.start_frame, width = 3,font = self.small_font)
@@ -78,6 +79,13 @@ class HelperGui:
         self.frequency_entry.insert(0, self.DEFAULT_FREQUENCY)
         self.operating_frequency_seconds_label = tk.Label(self.start_frame, text = "seconds.")
         self.operating_frequency_seconds_label.grid(row=0, column=3, sticky="w")
+        self.random_frequency_offset_label = tk.Label(self.start_frame, text = "Random offset limit:  ±")
+        self.random_frequency_offset_label.grid(row=1, column=0, sticky="w", columnspan=2)
+        self.random_frequency_offset_entry = tk.Entry(self.start_frame, width = 3,font = self.small_font)
+        self.random_frequency_offset_entry.grid(row=1, column=2, sticky="w")
+        self.random_frequency_offset_entry.insert(0, self.DEFAULT_RANDOM_OFFSET)
+        self.random_frequency_offset_seconds_label = tk.Label(self.start_frame, text = "seconds.")
+        self.random_frequency_offset_seconds_label.grid(row=1, column=3, sticky="w")
         self.start_button = tk.Button(self.start_frame, text = "Start", fg = "green", width = 8, bd = 5, font = self.big_font, command = self.start_click)
         self.start_button.grid(row=0, column=5, sticky="w", rowspan=2, padx=5)
         self.stop_button = tk.Button(self.start_frame, text = "Stop", fg = "red", width = 8, bd = 5, font = self.big_font, command = self.stop_click)
@@ -125,10 +133,10 @@ class HelperGui:
 
     def pending_courses_check_if_courses_registered(self):
         for line in self.helper.course_list:
-            hier =line.split(">")
-            if len(hier)>1:
-                if self.helper.check_if_registered(hier[-1]):
-                    self.pending_course_tag_add(hier[-1], "got")
+            hierarchy =line.split(">")
+            if len(hierarchy)>1:
+                if self.helper.check_if_registered(hierarchy[-1]):
+                    self.pending_course_tag_add(hierarchy[-1], "got")
 
 
     def pending_course_tag_add(self, text:str, tag:str):
@@ -171,16 +179,22 @@ class HelperGui:
             else:
                 self.status_dynamic_label["text"] = "Standby" #
                 self.status_dynamic_label["fg"] = "red"       # when all registrations are completed
-        self.root.after(int(self.frequency)*1000, self.register_loop)    #loop forever
+        self.root.after((int(self.frequency) + random.randint(-self.random_frequency_offset, self.random_frequency_offset))*1000, self.register_loop)    #loop forever
 
     def start_click(self):
         if self.helper is not None:
-            self.status_dynamic_label["text"] = "Running"
-            self.status_dynamic_label["fg"] = "green"
             if self.frequency_entry.get() == "":
                 self.frequency_entry.insert(0, self.DEFAULT_FREQUENCY)
             self.frequency = int(self.frequency_entry.get())
+            if self.random_frequency_offset_entry.get() == "":
+                self.random_frequency_offset_entry.insert(0, self.DEFAULT_RANDOM_OFFSET)
+            self.random_frequency_offset = int(self.random_frequency_offset_entry.get())
+            if self.random_frequency_offset >= self.frequency:
+                messagebox.showinfo(title = "Error", message = "Offset is greater or equal than the operating frequency")
+                return None
             self.helper.enable = True
+            self.status_dynamic_label["text"] = "Running"
+            self.status_dynamic_label["fg"] = "green"
             self.root.after(100, self.register_loop)
         else:
             messagebox.showinfo(title = "Error", message = "Driver is not running")
@@ -215,7 +229,7 @@ class Helper:
         self.enable = False
         self.course_list = []
         self.PATH = "C:\Program Files (x86)\chromedriver.exe"
-        self.TIMEOUT = 10
+        self.TIMEOUT = 30
         self.REGISTRATION_TIMEOUT = 20
         self.IS_AVAILABLE = "text-success"
         self.login(email, password)
@@ -300,16 +314,16 @@ class Helper:
         temp = self.course_list[:]
         for line in temp:
             hierarchy = line.split(">")
-            for hier_i, course_and_group in enumerate(hierarchy):
+            for hierarchy_index, course_and_group in enumerate(hierarchy):
                 (course, group) = course_and_group.split("-")
                 if not gui.pending_course_tag_search(course_and_group, "got") and self.is_group_available(course, group):
-                    if hier_i == 0:
+                    if hierarchy_index == 0:
                         self.course_list.remove(line)
                     else:   #there is higher priority
                         index = self.course_list.index(line)
                         self.course_list[index] = self.course_list[index][:self.course_list[index].find(course_and_group)+len(course_and_group)]    #remove all the lower priority courses
 
-                    if len(hierarchy[hier_i:])>1: #there is more hierarchy after - remove first
+                    if len(hierarchy[hierarchy_index:])>1: #there is more hierarchy after - remove first
                         course_to_remove = hierarchy[-1]
                         self.remove_course(course_to_remove)
                         gui.pending_course_tag_remove(course_to_remove, "got")
