@@ -325,7 +325,8 @@ class Helper:
 
                     if len(hierarchy[hierarchy_index:])>1: #there is more hierarchy after - remove first
                         course_to_remove = hierarchy[-1]
-                        self.remove_course(course_to_remove)
+                        if course_to_remove.split("-")[0] != course:    #if it is the same course no need to remove - it will be replaced
+                            self.remove_course(course_to_remove)
                         gui.pending_course_tag_remove(course_to_remove, "got")
                         gui.pending_course_tag_add(course_to_remove, "pending")
 
