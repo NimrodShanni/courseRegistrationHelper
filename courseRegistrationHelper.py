@@ -138,7 +138,6 @@ class HelperGui:
                 if self.helper.check_if_registered(hierarchy[-1]):
                     self.pending_course_tag_add(hierarchy[-1], "got")
 
-
     def pending_course_tag_add(self, text:str, tag:str):
         countVar = tk.StringVar()
         pos = self.pending_courses_text.search(text, "0.0", stopindex="end", count=countVar)
@@ -158,9 +157,7 @@ class HelperGui:
             if self.pending_courses_text.tag_nextrange(tag, pos, "%s + %sc" % (pos, countVar.get())) != ():
                 return True
         return False
-        
-        
-
+                
     def pending_course_mark_sep(self, text:str, tag:str):
         index = "0.0"
         countVar = tk.StringVar()
@@ -170,7 +167,6 @@ class HelperGui:
                 break 
             self.pending_courses_text.tag_add(tag, index, "%s + %sc" % (index, countVar.get()))
             index = "%s + %sc" % (index, countVar.get())
-
 
     def register_loop(self):
         if self.helper is not None:
