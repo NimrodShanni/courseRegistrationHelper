@@ -15,8 +15,8 @@ class HelperGui:
     def __init__(self):
 
         self.root = tk.Tk()
-        self.root.geometry("540x620")
-        self.root.minsize(540, 620)
+        self.root.geometry("550x620")
+        self.root.minsize(550, 620)
         self.root.title("Registration Helper")
         self.small_font = tk.font.Font( family = "Calibri", size = 12)
         self.big_font = tk.font.Font( family = "Calibri", size = 16)
@@ -50,7 +50,7 @@ class HelperGui:
 
         self.wanted_courses_frame = tk.LabelFrame(self.root, text = "Enter wanted courses", font = self.small_font, padx=5, pady=5)
         self.wanted_courses_frame.pack(pady=3, padx=10, fill= "both", expand="true")
-        self.pending_courses_frame = tk.LabelFrame(self.wanted_courses_frame, text = "Pending courses:", font = self.small_font, padx=5, pady=5)
+        self.pending_courses_frame = tk.LabelFrame(self.wanted_courses_frame, text = "Pending courses", font = self.small_font, padx=5, pady=5)
         self.pending_courses_frame.pack(side= "bottom", fill="both", expand= "true")
         self.pending_courses_text = tk.Text(self.pending_courses_frame, height=1, fg = "red", font = self.small_font)
         self.pending_courses_text.pack(fill="both", expand= "true", pady= 5)
@@ -71,7 +71,7 @@ class HelperGui:
         self.status_label = tk.Label(self.start_frame, text = "Status:")
         self.status_label.grid(row=2, column=0, sticky="w")
         self.status_dynamic_label = tk.Label(self.start_frame, text = "Standby", fg = "red")
-        self.status_dynamic_label.grid(row=2, column=1, sticky="w",)
+        self.status_dynamic_label.grid(row=2, column=0, sticky="w", padx = 62)
         self.operating_frequency_label = tk.Label(self.start_frame, text = "Operating frequency:")
         self.operating_frequency_label.grid(row=0, column=0, sticky="w", columnspan=2)
         self.frequency_entry = tk.Entry(self.start_frame, width = 3,font = self.small_font)
