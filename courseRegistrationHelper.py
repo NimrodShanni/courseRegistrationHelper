@@ -10,13 +10,17 @@ import tkinter as tk
 import tkinter.font
 from tkinter import messagebox
 import random
+import logging
 
 class HelperGui:
     def __init__(self):
 
+        logging.basicConfig(filename='courseRegistrationHelper_log.txt', filemode='w', format='%(levelname)s %(asctime)s - %(message)s', datefmt='%d/%m/%Y %H:%M:%S', encoding='utf-8', level=logging.INFO)
+        logging.info("helper started running")
+
         self.root = tk.Tk()
         self.root.geometry("550x620")
-        self.root.minsize(550, 620)
+        self.root.minsize(555, 620)
         self.root.title("Registration Helper")
         self.small_font = tk.font.Font( family = "Calibri", size = 12)
         self.big_font = tk.font.Font( family = "Calibri", size = 16)
@@ -25,12 +29,15 @@ class HelperGui:
 
         self.helper = None
         self.driver = None
+        self.courses_entered = False
         self.radio_variable = tk.StringVar()
         self.replacement_course = ""
         self.DEFAULT_FREQUENCY = 90
         self.DEFAULT_RANDOM_OFFSET = 20
         self.frequency = 1
         self.random_frequency_offset = self.DEFAULT_RANDOM_OFFSET
+        self.next_sample_interval = 0
+        self.timer_is_running = False
 
         self.login_frame = tk.LabelFrame(self.root, text = "Login", font = self.small_font ,padx=5, pady=5)
         self.login_frame.pack(pady=3, padx=10, fill="x")
@@ -112,7 +119,9 @@ class HelperGui:
         self.password_entry.delete(0, tk.END)
 
     def enter_courses_click(self):
+        logging.info("button 'enter courses' is clicked with arguments - %s", self.courses_text.get(0.0, "end-1c"))
         if self.helper is not None:
+            self.courses_entered = True
             if self.courses_text["fg"] != "grey":
                 self.helper.course_list= [course for course in self.courses_text.get(0.0, "end-1c").split("\n") if not course.isspace() and course != ""]
                 if self.helper.course_list == []:
@@ -129,9 +138,10 @@ class HelperGui:
                     self.pending_course_mark_sep(">", "sep2")
                     self.pending_course_mark_sep("|", "sep1")
         else:
-            messagebox.showinfo(title = "Error", message = "Login first")
+            messagebox.showinfo(title = "Error", message = "You haven't logged in")
 
     def pending_courses_check_if_courses_registered(self):
+        logging.info("function 'pending_courses_check_if_courses_registered' called")
         for line in self.helper.course_list:
             hierarchy =line.split(">")
             if len(hierarchy)>1:
@@ -168,22 +178,41 @@ class HelperGui:
             self.pending_courses_text.tag_add(tag, index, "%s + %sc" % (index, countVar.get()))
             index = "%s + %sc" % (index, countVar.get())
 
+    def update_timer(self):
+        if self.helper.enable:
+            self.root.after(1000, self.update_timer)
+            self.start_button.config(text = self.start_button.cget("text") - 1)
+
     def register_loop(self):
         if self.helper is not None:
             if self.helper.enable:
                 self.helper.register_all(self)
+                self.next_sample_interval = (int(self.frequency) + random.randint(-self.random_frequency_offset, self.random_frequency_offset))
+                self.start_button.config(text = self.next_sample_interval)
+                if not self.timer_is_running:
+                    self.timer_is_running = True
+                    self.update_timer_id = self.root.after(1000, self.update_timer)
+                self.register_loop_id = self.root.after(self.next_sample_interval*1000, self.register_loop)    # run the main func according to given (or default) timings.
+                logging.info("next sample is in %s seconds", self.next_sample_interval)
             else:
                 self.status_dynamic_label["text"] = "Standby" #
-                self.status_dynamic_label["fg"] = "red"       # when all registrations are completed
-        self.root.after((int(self.frequency) + random.randint(-self.random_frequency_offset, self.random_frequency_offset))*1000, self.register_loop)    #loop forever
+                self.status_dynamic_label["fg"] = "red"       # when all registrations are completed. redundant, but left here anyway
+                self.start_button.config(text="Start")        #
+                self.root.after_cancel(self.update_timer_id)  #
+                self.timer_is_running = False                 #
 
     def start_click(self):
+        logging.info("button 'start' is clicked")
         if self.helper is not None:
+            if not self.courses_entered:
+                messagebox.showinfo(title = "Error", message = "You haven't entered any courses")
             if self.frequency_entry.get() == "":
                 self.frequency_entry.insert(0, self.DEFAULT_FREQUENCY)
+                messagebox.showinfo(title = "Error", message = "No frequency given. default of " + str(self.DEFAULT_FREQUENCY) + " seconds is taken")
             self.frequency = int(self.frequency_entry.get())
             if self.random_frequency_offset_entry.get() == "":
                 self.random_frequency_offset_entry.insert(0, self.DEFAULT_RANDOM_OFFSET)
+                messagebox.showinfo(title = "Error", message = "No offset boundary given. default of " + str(self.DEFAULT_RANDOM_OFFSET) + " seconds is taken")
             self.random_frequency_offset = int(self.random_frequency_offset_entry.get())
             if self.random_frequency_offset >= self.frequency:
                 messagebox.showinfo(title = "Error", message = "Offset is greater or equal than the operating frequency")
@@ -193,20 +222,27 @@ class HelperGui:
             self.status_dynamic_label["fg"] = "green"
             self.root.after(100, self.register_loop)
         else:
-            messagebox.showinfo(title = "Error", message = "Driver is not running")
+            messagebox.showinfo(title = "Error", message = "Chrome driver is not running")
 
     def stop_click(self):
+        logging.info("button 'stop' is clicked")
         if self.helper is not None:
             self.status_dynamic_label["text"] = "Standby"
             self.status_dynamic_label["fg"] = "red"
+            self.start_button.config(text="Start")
+            self.root.after_cancel(self.update_timer_id)
+            self.timer_is_running = False
+            if self.helper.enable:
+                self.root.after_cancel(self.register_loop_id) # halt the instance that is currently running (fix for multiple instances at once)
             self.helper.enable = False
         else:
-            messagebox.showinfo(title = "Error", message = "Driver is not running")
+            messagebox.showinfo(title = "Error", message = "Chrome driver is not running")
 
     def on_closing(self):
         if self.helper is not None:
             self.helper.driver.quit()
         self.root.destroy()
+        logging.info("helper closed")
 
     def handle_courses_text_focus_in(self, event = None):
         if self.courses_text["fg"] == "grey":
@@ -226,12 +262,13 @@ class Helper:
         self.course_list = []
         self.PATH = "C:\Program Files (x86)\chromedriver.exe"
         self.TIMEOUT = 30
-        self.REGISTRATION_TIMEOUT = 20
+        self.REGISTRATION_TIMEOUT = 30
         self.IS_AVAILABLE = "text-success"
         self.login(email, password)
         self.action = ActionChains(self.driver)
 
     def login(self, email:str, password:str) -> None:
+        logging.info("function 'login' called with arguments - email: %s, password: %s", email, password)
         self.driver = webdriver.Chrome(self.PATH)
         self.driver.get("https://students.technion.ac.il/auth/oidc/")
         self.driver.maximize_window()
@@ -246,15 +283,17 @@ class Helper:
             self.driver.quit()
 
     def get_spans_xpath(self) -> tuple[list,str]:
-        WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_all_elements_located((By.XPATH, "/html/body/div[2]/div[3]/div/div/section/div/div/div")))
-        SPANS_XPATH = "/html/body/div[2]/div[3]/div/div/section/div/div/div[3]/div/div[1]/div/span"
+        logging.info("function 'get_spans_xpath' called")
+        WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_all_elements_located((By.XPATH, "/html/body/div[1]/div[2]/div/div/div/div/section/div")))
+        SPANS_XPATH = "/html/body/div[1]/div[2]/div/div/div/div/section/div[2]/div/div[3]/div/div[1]/div/span"
         groups = self.driver.find_elements(By.XPATH, SPANS_XPATH)
         if len(groups) == 0:
-            SPANS_XPATH = "/html/body/div[2]/div[3]/div/div/section/div/div/div[2]/div/div[1]/div/span"
+            SPANS_XPATH = "/html/body/div[1]/div[2]/div/div/div/div/section/div[2]/div/div[2]/div/div[1]/div/span[1]"
             groups = self.driver.find_elements(By.XPATH, SPANS_XPATH)
         return groups, SPANS_XPATH
     
     def is_group_available(self, course_number:str, group_number:str) -> bool:
+        logging.info("function 'is_group_available' called with arguments - course: %s, group: %s", course_number, group_number)
         self.driver.get("https://students.technion.ac.il/local/technionsearch/course/" + course_number)
         GROUP_NUMBER_XPATH = "/div/table/tbody/tr/td[1]/table/tbody/tr[2]/td/div"
         AVAILABLE_POSITIONS_XPATH = "/div/table/tbody/tr/td[1]/table/tbody/tr[1]/td[2]/div[2]"
@@ -266,13 +305,16 @@ class Helper:
         return result
 
     def checkout_cart(self) -> None:
+        logging.info("function 'checkout_cart' called")
         required_url = "https://students.technion.ac.il/local/tregister/cart"
         if self.driver.current_url != required_url:
             self.driver.get(required_url)
         self.action.double_click(WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.ID, "process_cart_item_request")))).perform()
+        self.action.double_click(WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.ID, "process_cart_item_request")))).perform()
         time.sleep(self.REGISTRATION_TIMEOUT)
 
     def add_to_cart(self, course_number:str, group_number:str) -> None:
+        logging.info("function 'add_to_cart' called with arguments - course: %s, group: %s", course_number, group_number)
         required_url = "https://students.technion.ac.il/local/tregister/cart"
         if self.driver.current_url != required_url:
             self.driver.get(required_url)
@@ -281,6 +323,7 @@ class Helper:
         WebDriverWait(self.driver, self.TIMEOUT).until(EC.element_to_be_clickable((By.ID, "id_submitbutton"))).click()
 
     def remove_course(self, course:str) -> None:
+        logging.info("function 'remove_course' called with argument - course: %s", course)
         required_url = "https://students.technion.ac.il/local/tregister/cart"
         if self.driver.current_url != required_url:
             self.driver.get(required_url)
@@ -294,6 +337,7 @@ class Helper:
                 time.sleep(5)
 
     def check_if_registered(self, course:str) -> bool:
+        logging.info("function 'check_if_registered' called with argument - course: %s", course)
         required_url = "https://students.technion.ac.il/local/tregister/cart"
         if self.driver.current_url != required_url:
             self.driver.get(required_url)
@@ -307,6 +351,7 @@ class Helper:
         return False
 
     def register_all(self, gui) -> None:
+        logging.info("function 'register_all' called with argument - course list: %s", self.course_list)
         temp = self.course_list[:]
         for line in temp:
             hierarchy = line.split(">")
@@ -331,8 +376,14 @@ class Helper:
                     break
         if len(self.course_list) == 0:  #all courses done
             self.enable = False
+            gui.status_dynamic_label["text"] = "Standby"
+            gui.status_dynamic_label["fg"] = "red"
+            self.start_button.config(text="Start")
+            self.root.after_cancel(self.update_timer_id)
+            self.timer_is_running = False
     
     def register_course(self, course:str, group:str) -> None:
+        logging.info("function 'register_course' called with arguments - course: %s, group: %s", course, group)
         self.add_to_cart(course, group)
         self.checkout_cart()
 
