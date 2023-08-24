@@ -37,7 +37,8 @@ class HelperGui:
         self.frequency = 1
         self.random_frequency_offset = self.DEFAULT_RANDOM_OFFSET
         self.next_sample_interval = 0
-        self.timer_is_running = False
+        self.register_loop_id = None
+        self.update_timer_id = None
 
         self.login_frame = tk.LabelFrame(self.root, text = "Login", font = self.small_font ,padx=5, pady=5)
         self.login_frame.pack(pady=3, padx=10, fill="x")
@@ -180,32 +181,41 @@ class HelperGui:
 
     def update_timer(self):
         if self.helper.enable:
-            self.root.after(1000, self.update_timer)
+            self.update_timer_id = self.root.after(1000, self.update_timer)
             self.start_button.config(text = self.start_button.cget("text") - 1)
+
+    def execute_standby_actions(self):
+        self.helper.enable = False
+        if self.register_loop_id is not None:
+            self.root.after_cancel(self.register_loop_id) # halt the instance that is currently running (fix for multiple instances at once)
+            self.register_loop_id = None
+        if self.update_timer_id is not None:
+            self.root.after_cancel(self.update_timer_id)
+            self.update_timer_id = None
+        self.status_dynamic_label["text"] = "Standby"
+        self.status_dynamic_label["fg"] = "red"
+        self.start_button.config(text="Start")
 
     def register_loop(self):
         if self.helper is not None:
             if self.helper.enable:
                 self.helper.register_all(self)
                 self.next_sample_interval = (int(self.frequency) + random.randint(-self.random_frequency_offset, self.random_frequency_offset))
+                if self.update_timer_id is not None:
+                    self.root.after_cancel(self.update_timer_id)
                 self.start_button.config(text = self.next_sample_interval)
-                if not self.timer_is_running:
-                    self.timer_is_running = True
-                    self.update_timer_id = self.root.after(1000, self.update_timer)
-                self.register_loop_id = self.root.after(self.next_sample_interval*1000, self.register_loop)    # run the main func according to given (or default) timings.
+                self.update_timer_id = self.root.after(1000, self.update_timer) # call for timer operation
+                self.register_loop_id = self.root.after(self.next_sample_interval*1000, self.register_loop)    # call for bot operation
                 logging.info("next sample is in %s seconds", self.next_sample_interval)
             else:
-                self.status_dynamic_label["text"] = "Standby" #
-                self.status_dynamic_label["fg"] = "red"       # when all registrations are completed. redundant, but left here anyway
-                self.start_button.config(text="Start")        #
-                self.root.after_cancel(self.update_timer_id)  #
-                self.timer_is_running = False                 #
+                self.execute_standby_actions()
 
     def start_click(self):
         logging.info("button 'start' is clicked")
         if self.helper is not None:
             if not self.courses_entered:
                 messagebox.showinfo(title = "Error", message = "You haven't entered any courses")
+                return None
             if self.frequency_entry.get() == "":
                 self.frequency_entry.insert(0, self.DEFAULT_FREQUENCY)
                 messagebox.showinfo(title = "Error", message = "No frequency given. default of " + str(self.DEFAULT_FREQUENCY) + " seconds is taken")
@@ -227,14 +237,7 @@ class HelperGui:
     def stop_click(self):
         logging.info("button 'stop' is clicked")
         if self.helper is not None:
-            self.status_dynamic_label["text"] = "Standby"
-            self.status_dynamic_label["fg"] = "red"
-            self.start_button.config(text="Start")
-            self.root.after_cancel(self.update_timer_id)
-            self.timer_is_running = False
-            if self.helper.enable:
-                self.root.after_cancel(self.register_loop_id) # halt the instance that is currently running (fix for multiple instances at once)
-            self.helper.enable = False
+            self.execute_standby_actions()
         else:
             messagebox.showinfo(title = "Error", message = "Chrome driver is not running")
 
@@ -375,12 +378,7 @@ class Helper:
                     gui.pending_course_tag_add(course_and_group, "got")
                     break
         if len(self.course_list) == 0:  #all courses done
-            self.enable = False
-            gui.status_dynamic_label["text"] = "Standby"
-            gui.status_dynamic_label["fg"] = "red"
-            self.start_button.config(text="Start")
-            self.root.after_cancel(self.update_timer_id)
-            self.timer_is_running = False
+            gui.execute_standby_actions()
     
     def register_course(self, course:str, group:str) -> None:
         logging.info("function 'register_course' called with arguments - course: %s, group: %s", course, group)
