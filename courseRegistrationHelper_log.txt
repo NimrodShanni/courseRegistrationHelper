@@ -1,0 +1,38 @@
+INFO 11/03/2024 14:57:18 - helper started running
+INFO 11/03/2024 14:57:25 - function 'login' called with arguments - email: nimrodshanni@campus.technion.ac.il, password: yuevjeTeCh00!
+INFO 11/03/2024 14:58:56 - button 'enter courses' is clicked with arguments - 104031-69>236343-14
+INFO 11/03/2024 14:58:56 - function 'pending_courses_check_if_courses_registered' called
+INFO 11/03/2024 14:58:56 - function 'check_if_registered' called with argument - course: 236343-14
+INFO 11/03/2024 14:59:03 - button 'start' is clicked
+INFO 11/03/2024 14:59:03 - function 'register_all' called with argument - course list: ['104031-69>236343-14']
+INFO 11/03/2024 14:59:03 - function 'is_group_available' called with arguments - course: 104031, group: 69
+INFO 11/03/2024 14:59:04 - function 'get_spans_xpath' called
+INFO 11/03/2024 14:59:04 - next sample is in 5 seconds
+INFO 11/03/2024 14:59:06 - button 'stop' is clicked
+INFO 11/03/2024 14:59:10 - button 'enter courses' is clicked with arguments - 104031-69>236343-14
+INFO 11/03/2024 14:59:10 - function 'pending_courses_check_if_courses_registered' called
+INFO 11/03/2024 14:59:10 - function 'check_if_registered' called with argument - course: 236343-14
+INFO 11/03/2024 14:59:20 - button 'start' is clicked
+INFO 11/03/2024 14:59:20 - function 'register_all' called with argument - course list: ['104031-69>236343-14']
+INFO 11/03/2024 14:59:20 - function 'is_group_available' called with arguments - course: 104031, group: 69
+INFO 11/03/2024 14:59:21 - function 'get_spans_xpath' called
+INFO 11/03/2024 14:59:21 - next sample is in 5 seconds
+INFO 11/03/2024 14:59:26 - function 'register_all' called with argument - course list: ['104031-69>236343-14']
+INFO 11/03/2024 14:59:26 - function 'is_group_available' called with arguments - course: 104031, group: 69
+INFO 11/03/2024 14:59:27 - function 'get_spans_xpath' called
+INFO 11/03/2024 14:59:27 - next sample is in 5 seconds
+INFO 11/03/2024 14:59:28 - button 'stop' is clicked
+INFO 11/03/2024 14:59:37 - button 'stop' is clicked
+INFO 11/03/2024 14:59:44 - button 'enter courses' is clicked with arguments - 104031-11>236343-14
+INFO 11/03/2024 14:59:44 - function 'pending_courses_check_if_courses_registered' called
+INFO 11/03/2024 14:59:44 - function 'check_if_registered' called with argument - course: 236343-14
+INFO 11/03/2024 14:59:53 - button 'start' is clicked
+INFO 11/03/2024 14:59:53 - function 'register_all' called with argument - course list: ['104031-11>236343-14']
+INFO 11/03/2024 14:59:53 - function 'is_group_available' called with arguments - course: 104031, group: 11
+INFO 11/03/2024 14:59:54 - function 'get_spans_xpath' called
+INFO 11/03/2024 14:59:54 - function 'remove_course' called with argument - course: 236343-14
+INFO 11/03/2024 15:00:04 - function 'register_course' called with arguments - course: 104031, group: 11
+INFO 11/03/2024 15:00:04 - function 'add_to_cart' called with arguments - course: 104031, group: 11
+INFO 11/03/2024 15:00:10 - function 'checkout_cart' called
+INFO 11/03/2024 15:00:41 - next sample is in 5 seconds
+INFO 11/03/2024 15:01:32 - helper closed

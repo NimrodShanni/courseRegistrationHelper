@@ -265,7 +265,7 @@ class Helper:
         self.course_list = []
         self.PATH = "C:\Program Files (x86)\chromedriver.exe"
         self.TIMEOUT = 30
-        self.REGISTRATION_TIMEOUT = 30
+        self.REGISTRATION_TIMEOUT = 50
         self.IS_AVAILABLE = "text-success"
         self.login(email, password)
         self.action = ActionChains(self.driver)
@@ -330,7 +330,7 @@ class Helper:
         required_url = "https://students.technion.ac.il/local/tregister/cart"
         if self.driver.current_url != required_url:
             self.driver.get(required_url)
-        COURSES_XPATH_PREFIX = "/html/body/div[2]/div[3]/div/div/section/div/ul[2]/li"
+        COURSES_XPATH_PREFIX = " /html/body/div[1]/div[2]/div/div/div/div/section/div[2]/ul[2]/li"
         COURSES_XPATH_SUFFIX = "/div/div/div[4]/div/a"
         existing_courses = WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_all_elements_located((By.XPATH, COURSES_XPATH_PREFIX)))
         for index in range(len(existing_courses)):
@@ -344,8 +344,8 @@ class Helper:
         required_url = "https://students.technion.ac.il/local/tregister/cart"
         if self.driver.current_url != required_url:
             self.driver.get(required_url)
-        COURSES_XPATH_PREFIX = "/html/body/div[2]/div[3]/div/div/section/div/ul[2]/li"
-        COURSES_XPATH_SUFFIX = "/div/div/div[4]/div/a"
+        COURSES_XPATH_PREFIX = "/html/body/div[1]/div[2]/div/div/div/div/section/div[2]/ul[2]/li"
+        COURSES_XPATH_SUFFIX = ""
         existing_courses = WebDriverWait(self.driver, self.TIMEOUT).until(EC.presence_of_all_elements_located((By.XPATH, COURSES_XPATH_PREFIX)))
         for index in range(len(existing_courses)):
             elem = self.driver.find_element(By.XPATH, COURSES_XPATH_PREFIX + "[" + str(index+1) + "]" + COURSES_XPATH_SUFFIX)
